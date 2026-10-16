@@ -2,12 +2,12 @@
 
 :root {
   color-scheme: light;
-  --moss: #49664e;
-  --deep-moss: #243b2d;
-  --oat: #f4f0e6;
-  --marigold: #d69b36;
-  --orchid: #8b637e;
-  --sage: #a8b99b;
+  --moss: #1b2a22;
+  --deep-moss: #121b16;
+  --oat: #efe9d8;
+  --marigold: #f4b223;
+  --orchid: #b58ae6;
+  --sage: #8fa394;
   --ink: var(--deep-moss);
   --paper: var(--oat);
   --font-display-family: var(--font-anybody), sans-serif;
@@ -60,5 +60,11 @@ a {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation-duration: 0.01ms;
   }
 }

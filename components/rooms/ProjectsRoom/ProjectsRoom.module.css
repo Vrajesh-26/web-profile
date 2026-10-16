@@ -1,0 +1,257 @@
+.projects-room {
+  margin-inline: calc((min(100vw - 2rem, 72rem) - 100vw) / 2);
+  padding-block: clamp(4rem, 10vw, 8rem);
+  padding-inline: max(1rem, calc((100vw - 72rem) / 2));
+  background: var(--moss);
+  color: var(--oat);
+}
+
+.projects-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--oat);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.projects-heading h2 {
+  margin: 0;
+  font-family: var(--font-display-family);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 450;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.projects-heading > p {
+  max-width: 20rem;
+  margin: 0 0 0.4rem;
+  color: var(--oat);
+  line-height: 1.55;
+}
+
+.project-deck {
+  display: grid;
+  gap: 1.5rem;
+  padding-bottom: 20vh;
+}
+
+.project-card {
+  --card-surface: var(--sage);
+  position: sticky;
+  top: calc(5.75rem + var(--card-index, 0) * 0.65rem);
+  display: grid;
+  min-height: 24rem;
+  grid-template-columns: minmax(15rem, 0.9fr) minmax(0, 1.1fr);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--deep-moss), transparent 82%);
+  background: var(--card-surface);
+  color: var(--deep-moss);
+  box-shadow: 0 1rem 2.5rem rgb(36 59 45 / 8%);
+  view-transition-name: var(--card-view-name);
+}
+
+.project-card[data-accent="marigold"] {
+  --card-surface: var(--marigold);
+}
+
+.project-card[data-accent="orchid"] {
+  --card-surface: var(--orchid);
+}
+
+.project-card[data-accent="oat"] {
+  --card-surface: var(--oat);
+}
+
+.project-art {
+  position: relative;
+  display: grid;
+  min-height: 22rem;
+  overflow: hidden;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgb(239 233 216 / 45%), transparent 52%),
+    linear-gradient(145deg, var(--moss), var(--deep-moss));
+}
+
+.project-card[data-accent="marigold"] .project-art {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgb(239 233 216 / 55%), transparent 52%),
+    linear-gradient(145deg, var(--marigold), #8c5e26);
+}
+
+.project-card[data-accent="orchid"] .project-art {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgb(239 233 216 / 45%), transparent 52%),
+    linear-gradient(145deg, var(--orchid), #49384b);
+}
+
+.art-orbit {
+  position: absolute;
+  width: 75%;
+  aspect-ratio: 1;
+  border: 1px solid rgb(239 233 216 / 38%);
+  border-radius: 50%;
+  transform: scaleY(0.52) rotate(-25deg);
+}
+
+.art-orbit::before,
+.art-orbit::after {
+  position: absolute;
+  inset: 12%;
+  border: inherit;
+  border-radius: inherit;
+  content: "";
+}
+
+.art-orbit::after {
+  inset: 25%;
+}
+
+.art-sun {
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--oat);
+  box-shadow: 0 0 4rem rgb(239 233 216 / 35%);
+}
+
+.art-landscape {
+  position: absolute;
+  right: -10%;
+  bottom: -27%;
+  left: -10%;
+  height: 52%;
+  border-radius: 50% 50% 0 0;
+  background: rgb(18 27 22 / 56%);
+  transform: rotate(-8deg);
+}
+
+.art-label {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.4rem;
+  color: var(--oat);
+  font-family: var(--font-display-family);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.project-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  color: var(--deep-moss);
+  font-size: 0.78rem;
+}
+
+.project-copy h3 {
+  margin: 1.3rem 0 0;
+  font-family: var(--font-display-family);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+
+.project-copy > p {
+  max-width: 35rem;
+  margin: 0.75rem 0 0;
+  line-height: 1.6;
+}
+
+.project-copy .project-outcome {
+  color: var(--deep-moss);
+  font-weight: 600;
+}
+
+.project-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1.3rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-skills li {
+  border: 1px solid color-mix(in srgb, var(--deep-moss), transparent 75%);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.77rem;
+}
+
+.case-study-link {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: auto;
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+.case-study-link span {
+  transition: transform 180ms ease;
+}
+
+.case-study-link:hover span {
+  transform: translate(2px, -2px);
+}
+
+.no-projects {
+  border-top: 1px solid color-mix(in srgb, var(--moss), transparent 72%);
+  padding-block: 2rem;
+  color: var(--oat);
+}
+
+@media (max-width: 720px) {
+  .projects-heading {
+    display: block;
+  }
+
+  .projects-heading > p {
+    margin-top: 1rem;
+  }
+
+  .project-card {
+    position: relative;
+    top: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .project-art {
+    min-height: 15rem;
+  }
+
+  .project-deck {
+    gap: 1rem;
+    padding-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card {
+    view-transition-name: none;
+  }
+
+  .case-study-link span {
+    transition: none;
+  }
+}

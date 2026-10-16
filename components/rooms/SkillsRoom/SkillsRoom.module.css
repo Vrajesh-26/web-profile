@@ -1,0 +1,185 @@
+.skills-room {
+  margin-inline: calc((min(100vw - 2rem, 72rem) - 100vw) / 2);
+  padding-block: clamp(4rem, 10vw, 8rem);
+  padding-inline: max(1rem, calc((100vw - 72rem) / 2));
+  background: var(--marigold);
+  color: var(--deep-moss);
+}
+
+.skills-intro {
+  max-width: 42rem;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--deep-moss);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skills-intro h2 {
+  margin: 0;
+  font-family: var(--font-display-family);
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 450;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.skills-intro > p:last-child {
+  max-width: 33rem;
+  margin: 1rem 0 0;
+  color: var(--deep-moss);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.skills-ticker {
+  --ticker-duration: 24s;
+  --ticker-direction: normal;
+  overflow: hidden;
+  margin: clamp(3rem, 7vw, 6rem) calc((min(100vw - 2rem, 72rem) - 100vw) / 2);
+  border-block: 1px solid color-mix(in srgb, var(--deep-moss), transparent 72%);
+  padding-block: 1.1rem;
+  color: var(--deep-moss);
+}
+
+.skills-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: ticker-scroll var(--ticker-duration) linear infinite;
+  animation-direction: var(--ticker-direction);
+}
+
+.skills-track > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.7rem;
+  padding-inline: 1.7rem;
+  font-family: var(--font-display-family);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  white-space: nowrap;
+}
+
+.ticker-separator {
+  color: var(--marigold);
+  font-family: var(--font-body-family);
+  font-size: 0.85em;
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.skill-filter {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.8fr) repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.filter-heading h3 {
+  margin: 0;
+  font-family: var(--font-display-family);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.filter-heading p {
+  margin: 0.6rem 0 0;
+  color: var(--deep-moss);
+  line-height: 1.5;
+}
+
+.skill-category h4 {
+  margin: 0 0 0.8rem;
+  color: var(--deep-moss);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.skill-tag,
+.clear-filter {
+  min-height: 2.45rem;
+  border: 1px solid color-mix(in srgb, var(--deep-moss), transparent 68%);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--deep-moss);
+  padding: 0.5rem 0.8rem;
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px);
+}
+
+.skill-tag.is-selected {
+  border-color: var(--deep-moss);
+  background: var(--deep-moss);
+  color: var(--oat);
+}
+
+.clear-filter {
+  grid-column: 2 / -1;
+  justify-self: start;
+  border-color: transparent;
+  color: var(--deep-moss);
+  padding-inline: 0;
+}
+
+.clear-filter span {
+  margin-left: 0.25rem;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 900px) {
+  .skill-filter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filter-heading {
+    grid-column: 1 / -1;
+  }
+
+  .clear-filter {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 540px) {
+  .skill-filter {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .filter-heading,
+  .clear-filter {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-track {
+    animation-play-state: paused;
+    transform: none;
+  }
+
+  .skill-tag,
+  .clear-filter {
+    transition: none;
+  }
+}

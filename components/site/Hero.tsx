@@ -186,7 +186,7 @@ export function Hero({ profile }: HeroProps) {
           <a className={`${styles["hero-cta"]} ${styles["hero-cta-primary"]}`} href="#projects">
             View projects
           </a>
-          <a className={`${styles["hero-cta"]} ${styles["hero-cta-secondary"]}`} href="#resume">
+          <a className={`${styles["hero-cta"]} ${styles["hero-cta-secondary"]}`} href="#documents">
             Open resume
           </a>
         </div>
