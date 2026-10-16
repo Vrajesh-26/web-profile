@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --moss: #49664e;
+  --deep-moss: #243b2d;
+  --oat: #f4f0e6;
+  --marigold: #d69b36;
+  --orchid: #8b637e;
+  --sage: #a8b99b;
+  --ink: var(--deep-moss);
+  --paper: var(--oat);
+  --font-display-family: var(--font-anybody), sans-serif;
+  --font-body-family: var(--font-hanken-grotesk), sans-serif;
+  --focus-ring: 0 0 0 3px var(--marigold);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-moss: var(--moss);
+  --color-deep-moss: var(--deep-moss);
+  --color-oat: var(--oat);
+  --color-marigold: var(--marigold);
+  --color-orchid: var(--orchid);
+  --color-sage: var(--sage);
+  --font-sans: var(--font-body-family);
+  --font-display: var(--font-display-family);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.page-shell {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+  padding-block: clamp(3rem, 9vw, 7rem);
+}
+
+.page-intro {
+  max-width: 48rem;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.page-intro h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 8vw, 6rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.page-intro p {
+  max-width: 36rem;
+  margin: 1.5rem 0 0;
+  color: var(--moss);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.room-shell {
+  --room-accent: var(--moss);
+  border: 1px solid color-mix(in srgb, var(--room-accent), transparent 70%);
+  border-radius: 1.5rem;
+  background: color-mix(in srgb, var(--room-accent), var(--paper) 94%);
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.room-shell[data-accent="deep-moss"] {
+  --room-accent: var(--deep-moss);
+}
+
+.room-shell[data-accent="oat"] {
+  --room-accent: var(--oat);
+}
+
+.room-shell[data-accent="marigold"] {
+  --room-accent: var(--marigold);
+}
+
+.room-shell[data-accent="orchid"] {
+  --room-accent: var(--orchid);
+}
+
+.room-shell[data-accent="sage"] {
+  --room-accent: var(--sage);
+}
+
+.room-shell h2 {
+  margin: 0;
+  font-family: var(--font-display-family);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 450;
+  letter-spacing: -0.035em;
+}
+
+.room-shell p {
+  margin: 0.75rem 0 0;
+  color: var(--moss);
+  font-size: 1rem;
+  line-height: 1.6;
 }
