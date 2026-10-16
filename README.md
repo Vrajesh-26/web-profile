@@ -2,6 +2,24 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Copy `.env.example` to `.env.local` and set the database URL, `AUTH_SECRET`,
+`OWNER_EMAIL`, `OWNER_PASSWORD`, `RATE_LIMIT_HASH_SECRET`, and the Turnstile
+values. Keep `.env.local` private. Set `NEXT_PUBLIC_SITE_URL` to the local or
+deployed origin.
+
+Apply the schema and initialize public content:
+
+```bash
+npm run db:push
+npm run db:seed
+npm run db:seed-owner
+```
+
+`db:seed` resets the public content tables; run it only when initializing or
+intentionally restoring the placeholder content. `db:seed-owner` creates the
+single owner account and marks its configured email verified. There is no
+public sign-up page or enabled sign-up endpoint. Sign in at `/login`.
+
 First, run the development server:
 
 ```bash

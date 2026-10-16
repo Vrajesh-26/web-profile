@@ -1,0 +1,21 @@
+.page {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.header p {
+  margin: 0 0 7px;
+  color: #68756c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 650;
+}

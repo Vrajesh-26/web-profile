@@ -1,0 +1,15 @@
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.form > button {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.error {
+  margin: -4px 0 0;
+  color: #a0322a;
+  font-size: 13px;
+}

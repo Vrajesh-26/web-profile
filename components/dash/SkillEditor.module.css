@@ -1,0 +1,84 @@
+.editor {
+  min-width: 0;
+  border: 1px solid #dfe3df;
+  border-radius: 6px;
+  padding: 14px;
+  background: #fff;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: minmax(150px, 1.4fr) minmax(110px, 0.8fr) minmax(125px, 1fr) minmax(90px, 0.7fr) 80px auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.create .fields {
+  grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 0.8fr) minmax(125px, 1fr) minmax(90px, 0.7fr) 80px auto;
+}
+
+.nameField,
+.orderField {
+  min-width: 0;
+}
+
+.visibleField {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 7px;
+  color: #4d5a51;
+  font-size: 13px;
+}
+
+.visibleField input {
+  width: 16px;
+  height: 16px;
+  accent-color: #344d3d;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2px;
+  margin-top: 8px;
+  border-top: 1px solid #edf0ed;
+  padding-top: 7px;
+}
+
+.actions form {
+  display: contents;
+}
+
+.error,
+.success {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 12px;
+}
+
+.error {
+  color: #a0322a;
+}
+
+.success {
+  color: #42634d;
+}
+
+@media (max-width: 900px) {
+  .fields,
+  .create .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fields > button {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 480px) {
+  .fields,
+  .create .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,53 @@
+.loginPage {
+  --focus-ring: 0 0 0 3px #aab6ad;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+  background: #f3f4f2;
+  color: #202a24;
+}
+
+.loginPanel {
+  width: min(100%, 420px);
+  border: 1px solid #dfe2de;
+  border-radius: 7px;
+  padding: 34px;
+  background: #fff;
+  box-shadow: 0 16px 50px rgb(27 42 34 / 7%);
+}
+
+.wordmark {
+  display: inline-block;
+  margin-bottom: 42px;
+  color: #24372e;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #637168;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.loginPanel h1 {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-size: 30px;
+  font-weight: 650;
+}
+
+.description {
+  margin: 8px 0 26px;
+  color: #606b64;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .loginPanel {
+    padding: 26px 22px;
+  }
+}

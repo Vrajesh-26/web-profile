@@ -1,0 +1,107 @@
+.settings {
+  display: grid;
+  width: min(100%, 900px);
+  gap: 24px;
+}
+
+.section {
+  border: 1px solid #dfe3df;
+  border-radius: 6px;
+  padding: 18px;
+  background: #fff;
+}
+
+.section h2 {
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+
+.section > p,
+.sectionHeader p {
+  margin: -6px 0 16px;
+  color: #69756d;
+  font-size: 13px;
+}
+
+.passwordForm {
+  display: grid;
+  max-width: 460px;
+  gap: 14px;
+}
+
+.formFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.formFooter p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.error {
+  color: #a0322a;
+}
+
+.success {
+  color: #42634d;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sectionHeader h2 {
+  margin-bottom: 10px;
+}
+
+.sectionHeader p {
+  margin: 0 0 14px;
+}
+
+.sectionHeader > span {
+  color: #6e7971;
+  font-size: 13px;
+}
+
+.sessionList {
+  border-top: 1px solid #e3e6e3;
+}
+
+.session {
+  display: flex;
+  min-height: 72px;
+  align-items: center;
+  gap: 13px;
+  border-bottom: 1px solid #e3e6e3;
+  padding: 12px 2px;
+}
+
+.session > div {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: 3px;
+}
+
+.session strong {
+  font-size: 13px;
+}
+
+.session span,
+.session small,
+.empty {
+  overflow-wrap: anywhere;
+  color: #68746c;
+  font-size: 12px;
+}
+
+.empty {
+  margin: 0;
+  padding: 12px 0;
+}
