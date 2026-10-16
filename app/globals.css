@@ -52,73 +52,13 @@ a {
   box-shadow: var(--focus-ring);
 }
 
-.page-shell {
-  width: min(100% - 2rem, 72rem);
-  margin-inline: auto;
-  padding-block: clamp(3rem, 9vw, 7rem);
-}
-
-.page-intro {
-  max-width: 48rem;
-  margin-bottom: clamp(2rem, 5vw, 4rem);
-}
-
-.page-intro h1 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 8vw, 6rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
-  line-height: 0.98;
-}
-
-.page-intro p {
-  max-width: 36rem;
-  margin: 1.5rem 0 0;
-  color: var(--moss);
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  line-height: 1.6;
-}
-
-.room-shell {
-  --room-accent: var(--moss);
-  border: 1px solid color-mix(in srgb, var(--room-accent), transparent 70%);
-  border-radius: 1.5rem;
-  background: color-mix(in srgb, var(--room-accent), var(--paper) 94%);
-  padding: clamp(1.5rem, 4vw, 3rem);
-}
-
-.room-shell[data-accent="deep-moss"] {
-  --room-accent: var(--deep-moss);
-}
-
-.room-shell[data-accent="oat"] {
-  --room-accent: var(--oat);
-}
-
-.room-shell[data-accent="marigold"] {
-  --room-accent: var(--marigold);
-}
-
-.room-shell[data-accent="orchid"] {
-  --room-accent: var(--orchid);
-}
-
-.room-shell[data-accent="sage"] {
-  --room-accent: var(--sage);
-}
-
-.room-shell h2 {
-  margin: 0;
-  font-family: var(--font-display-family);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 450;
-  letter-spacing: -0.035em;
-}
-
-.room-shell p {
-  margin: 0.75rem 0 0;
-  color: var(--moss);
-  font-size: 1rem;
-  line-height: 1.6;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

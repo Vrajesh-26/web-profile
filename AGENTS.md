@@ -6,4 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
+- Styles: globals.css holds tokens/base only (under 150 lines). Component styles go in a co-located *.module.css or Tailwind utilities, never in globals.css.
+- Each new room = one folder under components/rooms with its own component and module CSS.
+
 <!-- END:nextjs-agent-rules -->

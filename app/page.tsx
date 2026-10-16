@@ -1,21 +1,27 @@
 import { RoomShell } from "@/components/rooms/RoomShell";
-import { getRooms } from "@/lib/data";
+import { Hero } from "@/components/site/Hero";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { getMenuRooms, getProfile, getRooms } from "@/lib/data";
+import styles from "./page.module.css";
 
 export default function Home() {
   const rooms = getRooms();
+  const profile = getProfile();
 
   return (
-    <main className="page-shell">
-      <header className="page-intro">
-        <h1>A profile, thoughtfully told.</h1>
-        <p>
-          A place to bring together the work, ideas, and experiences that make
-          up my story.
-        </p>
-      </header>
-      {rooms.map((room) => (
-        <RoomShell key={room.slug} room={room} />
-      ))}
-    </main>
+    <>
+      <SiteHeader
+        menuRooms={getMenuRooms()}
+        wordmark={`${profile.firstName} ${profile.lastName}`}
+      />
+      <main>
+        <Hero profile={profile} />
+        <div className={styles["page-shell"]}>
+          {rooms.map((room) => (
+            <RoomShell key={room.slug} room={room} />
+          ))}
+        </div>
+      </main>
+    </>
   );
 }

@@ -1,0 +1,52 @@
+.site-header {
+  position: absolute;
+  z-index: 5;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 2.5rem, 88rem);
+  height: 5.5rem;
+  margin-inline: auto;
+  color: var(--oat);
+}
+
+.site-wordmark {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 2.75rem;
+  border: 1px solid rgb(244 240 230 / 38%);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  padding: 0.45rem 0.55rem 0.45rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.menu-button-mark {
+  display: grid;
+  width: 1.75rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--oat);
+  color: var(--deep-moss);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    height: 4.75rem;
+  }
+}

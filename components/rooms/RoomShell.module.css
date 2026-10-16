@@ -1,0 +1,42 @@
+.room-shell {
+  --room-accent: var(--moss);
+  border: 1px solid color-mix(in srgb, var(--room-accent), transparent 70%);
+  border-radius: 1.5rem;
+  background: color-mix(in srgb, var(--room-accent), var(--paper) 94%);
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.room-shell[data-accent="deep-moss"] {
+  --room-accent: var(--deep-moss);
+}
+
+.room-shell[data-accent="oat"] {
+  --room-accent: var(--oat);
+}
+
+.room-shell[data-accent="marigold"] {
+  --room-accent: var(--marigold);
+}
+
+.room-shell[data-accent="orchid"] {
+  --room-accent: var(--orchid);
+}
+
+.room-shell[data-accent="sage"] {
+  --room-accent: var(--sage);
+}
+
+.room-shell h2 {
+  margin: 0;
+  font-family: var(--font-display-family);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 450;
+  letter-spacing: -0.035em;
+}
+
+.room-shell p {
+  margin: 0.75rem 0 0;
+  color: var(--moss);
+  font-size: 1rem;
+  line-height: 1.6;
+}
