@@ -20,7 +20,7 @@ export function AgentKeyCreateForm() {
   return (
     <section className={styles.section} aria-labelledby="create-key-title">
       <h2 id="create-key-title">Create access key</h2>
-      <p>Keys can read the approved contact card. The secret is shown only once.</p>
+      <p>Keys are scoped and rate-limited. The secret is shown only once.</p>
       {state?.key ? (
         <div className={styles.createdKey} role="status">
           <strong>{state.label}</strong>
@@ -30,6 +30,11 @@ export function AgentKeyCreateForm() {
       ) : (
         <form action={action} className={styles.form}>
           <div><FieldLabel htmlFor="agent-key-label">Label</FieldLabel><Input id="agent-key-label" name="label" required maxLength={80} placeholder="Recruiting team" /></div>
+          <div className={styles.options}>
+            <label><input type="checkbox" name="scope" value="contact:read" defaultChecked required /> Read contact card</label>
+            <label htmlFor="agent-key-limit">Requests per hour</label>
+            <Input id="agent-key-limit" name="rateLimitPerHour" type="number" min={1} max={20} defaultValue={20} required />
+          </div>
           <Button type="submit" disabled={pending}><KeyRound size={16} />{pending ? "Creating..." : "Create key"}</Button>
           {state?.error && <p className={styles.error} role="alert">{state.error}</p>}
         </form>

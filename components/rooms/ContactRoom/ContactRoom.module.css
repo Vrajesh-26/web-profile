@@ -111,6 +111,41 @@
   font-size: 0.76rem;
 }
 
+.verification-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.verification-error > button {
+  border: 0;
+  background: transparent;
+  color: var(--marigold);
+  padding: 0;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.contact-form > button:hover:not(:disabled),
+.contact-success > button:hover {
+  background: var(--marigold);
+}
+
+.contact-form > button:active:not(:disabled),
+.contact-success > button:active {
+  transform: translateY(1px);
+}
+
+.contact-form > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
 .contact-success {
   grid-column: 1 / -1;
   max-width: 44rem;

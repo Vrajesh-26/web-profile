@@ -1,7 +1,8 @@
 import { cacheLife } from "next/cache";
 import { and, eq, asc } from "drizzle-orm";
 import { getDb, hasDatabaseUrl } from "@/lib/db";
-import { documents, journey, profile, projectSkills, projects, skills } from "@/db/schema";
+import { documents, journey, profile, projectSkills, projects, skills, socialLinks } from "@/db/schema";
+import { isPublicWebUrl } from "@/lib/seo/site-url";
 import { seedData } from "@/data/seed";
 import type {
   DocumentSeed,
@@ -38,7 +39,16 @@ export async function getProfile(): Promise<ProfileSeed> {
   cacheLife("hours");
   if (!hasDatabaseUrl()) return seedData.profile;
 
-  const [row] = await getDb().select().from(profile).where(eq(profile.id, 1)).limit(1);
+  const [row] = await getDb().select({
+    fullName: profile.fullName,
+    tagline: profile.tagline,
+    roleLine: profile.roleLine,
+    bioMd: profile.bioMd,
+    portraitAlt: profile.portraitAlt,
+    location: profile.location,
+    availability: profile.availability,
+    nowMd: profile.nowMd,
+  }).from(profile).where(eq(profile.id, 1)).limit(1);
   if (!row) return seedData.profile;
   const [firstName, ...lastNames] = row.fullName.split(" ");
 
@@ -73,7 +83,19 @@ export async function getProjects(): Promise<readonly ProjectSeed[]> {
 
   const db = getDb();
   const rows = await db.select({
-    project: projects,
+    project: {
+      id: projects.id,
+      slug: projects.slug,
+      title: projects.title,
+      summary: projects.summary,
+      outcome: projects.outcome,
+      publishedAt: projects.publishedAt,
+      role: projects.role,
+      accent: projects.accent,
+      bodyMd: projects.bodyMd,
+      liveUrl: projects.liveUrl,
+      repoUrl: projects.repoUrl,
+    },
     skillName: skills.name,
   })
     .from(projects)
@@ -124,7 +146,13 @@ export async function getJourney(): Promise<readonly JourneySeed[]> {
   cacheLife("hours");
   if (!hasDatabaseUrl()) return seedData.journey;
 
-  const rows = await getDb().select().from(journey)
+  const rows = await getDb().select({
+    startDate: journey.startDate,
+    endDate: journey.endDate,
+    title: journey.title,
+    org: journey.org,
+    body: journey.body,
+  }).from(journey)
     .where(eq(journey.visible, true))
     .orderBy(asc(journey.sortOrder));
   return rows.map((row) => ({
@@ -140,7 +168,12 @@ export async function getDocuments(): Promise<readonly DocumentSeed[]> {
   cacheLife("hours");
   if (!hasDatabaseUrl()) return seedData.documents;
 
-  const rows = await getDb().select().from(documents)
+  const rows = await getDb().select({
+    title: documents.title,
+    description: documents.description,
+    format: documents.format,
+    driveUrl: documents.driveUrl,
+  }).from(documents)
     .where(eq(documents.visible, true))
     .orderBy(asc(documents.sortOrder));
   return rows.map((row) => ({
@@ -150,4 +183,14 @@ export async function getDocuments(): Promise<readonly DocumentSeed[]> {
     previewUrl: row.driveUrl ?? undefined,
     downloadUrl: row.driveUrl ?? undefined,
   }));
+}
+
+export async function getSocialLinks(): Promise<readonly { label: string; url: string }[]> {
+  "use cache";
+  cacheLife("hours");
+  if (!hasDatabaseUrl()) return [];
+
+  const rows = await getDb().select({ label: socialLinks.label, url: socialLinks.url })
+    .from(socialLinks).where(eq(socialLinks.visible, true)).orderBy(asc(socialLinks.sortOrder));
+  return rows.filter((link) => isPublicWebUrl(link.url));
 }

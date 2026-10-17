@@ -1,5 +1,6 @@
 import { and, asc, desc, eq, gt } from "drizzle-orm";
 import { headers } from "next/headers";
+import { io } from "next/cache";
 import { notFound } from "next/navigation";
 import { AgentAccessManager } from "@/components/dash/AgentAccessManager";
 import { EntityManager, type EntityRow } from "@/components/dash/EntityManager";
@@ -12,6 +13,8 @@ import { getAuthServer } from "@/lib/auth/server";
 import { requireOwner } from "@/lib/auth/require-owner";
 import { getDb } from "@/lib/db";
 import styles from "./page.module.css";
+
+export const instant = false;
 
 const titles: Record<string, string> = {
   profile: "Profile", projects: "Projects", journey: "Journey", documents: "Documents",
@@ -71,9 +74,11 @@ export default async function DashboardModulePage({ params }: { params: Promise<
   } else {
     const owner = await requireOwner();
     const current = await getAuthServer().api.getSession({ headers: await headers() });
+    await io();
+    const now = new Date();
     const sessions = await db.select({ id: authSession.id, createdAt: authSession.createdAt, expiresAt: authSession.expiresAt, ipAddress: authSession.ipAddress, userAgent: authSession.userAgent })
       .from(authSession)
-      .where(and(eq(authSession.userId, owner.id), gt(authSession.expiresAt, new Date())))
+      .where(and(eq(authSession.userId, owner.id), gt(authSession.expiresAt, now)))
       .orderBy(desc(authSession.createdAt));
     content = <SettingsManager sessions={sessions.map((session) => ({ ...session, current: session.id === current?.session.id }))} />;
   }

@@ -4,6 +4,8 @@ import { getDb } from "@/lib/db";
 import { SkillEditor } from "@/components/dash/SkillEditor";
 import styles from "./page.module.css";
 
+export const instant = false;
+
 export default async function SkillsPage() {
   const rows = await getDb().select().from(skills).orderBy(asc(skills.sortOrder));
 

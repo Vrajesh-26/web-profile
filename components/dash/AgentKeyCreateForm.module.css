@@ -19,10 +19,26 @@
 
 .form {
   display: grid;
-  grid-template-columns: minmax(220px, 420px) auto;
+  grid-template-columns: minmax(220px, 420px) minmax(180px, 260px) auto;
   align-items: end;
   gap: 12px;
 }
+
+.options {
+  display: grid;
+  gap: 6px;
+  color: var(--dash-muted);
+  font-size: 13px;
+}
+
+.options label:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--dash-ink);
+}
+
+.options input[type="checkbox"] { accent-color: var(--dash-primary); }
 
 .form .error {
   grid-column: 1 / -1;

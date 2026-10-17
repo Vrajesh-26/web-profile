@@ -1,12 +1,34 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProject, getProjects } from "@/lib/data";
+import { getSiteUrl } from "@/lib/seo/site-url";
 import styles from "./page.module.css";
 
 export const instant = false;
 
 export async function generateStaticParams() {
   return (await getProjects()).map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProject(slug);
+  if (!project) return {};
+  const url = new URL(`/projects/${project.slug}`, getSiteUrl());
+  return {
+    title: project.title,
+    description: project.description.slice(0, 155),
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: project.title,
+      description: project.description.slice(0, 155),
+      url,
+      images: [{ url: `/projects/${project.slug}/opengraph-image`, width: 1200, height: 630, alt: project.title }],
+    },
+    twitter: { card: "summary_large_image", title: project.title, description: project.description.slice(0, 155), images: [`/projects/${project.slug}/opengraph-image`] },
+  };
 }
 
 export default async function CaseStudyPage({
