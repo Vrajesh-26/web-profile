@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main className={styles.loginPage}>
+    <main id="main-content" className={styles.loginPage} tabIndex={-1}>
       <section className={styles.loginPanel} aria-labelledby="login-title">
         <Link className={styles.wordmark} href="/">Profile / Owner</Link>
         <p className={styles.eyebrow}>Private workspace</p>

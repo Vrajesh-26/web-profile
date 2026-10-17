@@ -59,7 +59,7 @@ export default async function Home() {
         menuRooms={menuRooms}
         wordmark={`${profile.firstName} ${profile.lastName}`}
       />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Hero profile={profile} />
         <div className={styles["page-shell"]}>
           <AboutRoom profile={profile} />

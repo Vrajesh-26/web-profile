@@ -20,11 +20,18 @@ async function signIn(page: Page) {
 
 test("public HTML excludes private values and dashboard redirects while logged out", async ({ page }) => {
   const response = await page.goto("/");
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#main-content$/);
+  await expect(page.locator("#main-content")).toBeFocused();
+
   const html = await response?.text() ?? "";
   const visibleText = await page.locator("body").innerText();
   expect(html.includes(ownerEmail ?? "owner-email-not-configured")).toBe(false);
   expect(html).not.toMatch(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
   expect(visibleText).not.toMatch(/\+?\d[\d\s().-]{8,}\d/);
+  await expect(page.locator("#contact button[type=submit]")).toBeEnabled();
 
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/login(?:\?.*)?$/);

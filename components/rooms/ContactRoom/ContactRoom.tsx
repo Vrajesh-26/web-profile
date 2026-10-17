@@ -70,7 +70,11 @@ export function ContactRoom({ siteKey }: { siteKey: string }) {
     event.preventDefault();
     setError("");
     if (!turnstileToken) {
-      setError("Complete the verification before sending your message.");
+      setError(!siteKey
+        ? "Contact verification is not configured. Please try again later."
+        : turnstileError
+          ? "Verification is unavailable. Retry verification before sending."
+          : "Complete the verification before sending your message.");
       return;
     }
 
@@ -172,7 +176,7 @@ export function ContactRoom({ siteKey }: { siteKey: string }) {
               </div>
             )}
             {error && <p className={styles["form-note"]} role="alert">{error}</p>}
-            <button type="submit" disabled={pending || !siteKey || turnstileError}>
+            <button type="submit" disabled={pending}>
               {pending ? "Sending…" : "Send message"} <span aria-hidden="true">↗</span>
             </button>
           </form>

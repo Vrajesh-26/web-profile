@@ -25,6 +25,7 @@ export default async function DashboardModulePage({ params }: { params: Promise<
   const { module } = await params;
   const title = titles[module];
   if (!title) notFound();
+  await io();
   const db = getDb();
   let content: React.ReactNode;
 
@@ -74,7 +75,6 @@ export default async function DashboardModulePage({ params }: { params: Promise<
   } else {
     const owner = await requireOwner();
     const current = await getAuthServer().api.getSession({ headers: await headers() });
-    await io();
     const now = new Date();
     const sessions = await db.select({ id: authSession.id, createdAt: authSession.createdAt, expiresAt: authSession.expiresAt, ipAddress: authSession.ipAddress, userAgent: authSession.userAgent })
       .from(authSession)

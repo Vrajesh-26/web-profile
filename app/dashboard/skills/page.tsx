@@ -1,3 +1,4 @@
+import { io } from "next/cache";
 import { asc } from "drizzle-orm";
 import { skills } from "@/db/schema";
 import { getDb } from "@/lib/db";
@@ -7,6 +8,7 @@ import styles from "./page.module.css";
 export const instant = false;
 
 export default async function SkillsPage() {
+  await io();
   const rows = await getDb().select().from(skills).orderBy(asc(skills.sortOrder));
 
   return (

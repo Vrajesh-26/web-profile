@@ -31,7 +31,7 @@ export function DashboardShell({ children }: Readonly<{ children: React.ReactNod
           <DashboardSignOut />
         </div>
       </aside>
-      <main className={styles.main}>{children}</main>
+      <main id="main-content" className={styles.main} tabIndex={-1}>{children}</main>
     </div>
   );
 }

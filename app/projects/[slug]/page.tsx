@@ -41,7 +41,7 @@ export default async function CaseStudyPage({
   if (!project) notFound();
 
   return (
-    <main className={styles["case-study"]} data-accent={project.accent}>
+    <main id="main-content" className={styles["case-study"]} data-accent={project.accent} tabIndex={-1}>
       <nav className={styles["case-nav"]} aria-label="Case study navigation">
         <Link href="/#projects">← Back to projects</Link>
         <span>{project.year}</span>
