@@ -1,6 +1,6 @@
 "use server";
 
-import { and, asc, eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { skills } from "@/db/schema";
@@ -21,6 +21,7 @@ export type SkillActionState = { error?: string; success?: string } | null;
 function revalidateSkills() {
   revalidatePath("/");
   revalidatePath("/dashboard/skills");
+  revalidatePath("/projects/[slug]", "page");
 }
 
 function readSkill(formData: FormData) {
@@ -39,13 +40,16 @@ export async function saveSkill(_state: SkillActionState, formData: FormData): P
   const parsed = readSkill(formData);
   if (!parsed.success) return { error: "Check the skill fields and try again." };
 
-  const id = String(formData.get("id") ?? "").trim();
+  const idValue = String(formData.get("id") ?? "").trim();
+  const id = idValue ? z.string().uuid().safeParse(idValue) : null;
+  if (id && !id.success) return { error: "This skill could not be saved." };
   const values = { ...parsed.data, iconKey: parsed.data.iconKey || null };
   const db = getDb();
 
   try {
-    if (id) {
-      await db.update(skills).set(values).where(eq(skills.id, id));
+    if (idValue) {
+      const updated = await db.update(skills).set(values).where(eq(skills.id, id!.data)).returning({ id: skills.id });
+      if (!updated.length) return { error: "Skill not found." };
     } else {
       await db.insert(skills).values(values);
     }
@@ -92,6 +96,6 @@ export async function deleteSkill(formData: FormData) {
   const id = z.string().uuid().safeParse(formData.get("id"));
   if (!id.success) throw new Error("Invalid skill.");
 
-  await getDb().delete(skills).where(and(eq(skills.id, id.data)));
+  await getDb().delete(skills).where(eq(skills.id, id.data));
   revalidateSkills();
 }

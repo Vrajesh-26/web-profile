@@ -24,13 +24,13 @@
 .header > p,
 .listHeading span {
   margin: 0 0 4px;
-  color: #707a73;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
 .eyebrow {
   margin: 0 0 7px;
-  color: #68756c;
+  color: var(--dash-muted);
   font-size: 12px;
   font-weight: 700;
 }
@@ -48,10 +48,10 @@
 }
 
 .createSection {
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--dash-border);
   border-radius: 6px;
   padding: 18px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .listHeading {
@@ -68,10 +68,10 @@
 }
 
 .empty {
-  border-top: 1px solid #dce1dc;
-  border-bottom: 1px solid #dce1dc;
+  border-top: 1px solid var(--dash-border);
+  border-bottom: 1px solid var(--dash-border);
   padding: 24px 10px;
-  color: #6e7971;
+  color: var(--dash-muted);
   font-size: 14px;
 }
 

@@ -1,9 +1,9 @@
 .form {
   width: min(100%, 900px);
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--dash-border);
   border-radius: 6px;
   padding: 20px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .grid {
@@ -30,11 +30,11 @@
 }
 
 .error {
-  color: #a0322a;
+  color: var(--dash-danger);
 }
 
 .success {
-  color: #42634d;
+  color: var(--dash-success);
 }
 
 @media (max-width: 640px) {

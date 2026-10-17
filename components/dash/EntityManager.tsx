@@ -69,7 +69,7 @@ function EntityForm({ kind, row, skills, count }: { kind: ContentKind; row?: Ent
   const prefix = String(row?.id ?? `new-${kind}`);
   return (
     <form action={action} className={styles.form}>
-      <input type="hidden" name="kind" value={kind} />
+      <input type="hidden" name="contentKind" value={kind} />
       {row?.id && <input type="hidden" name="id" value={String(row.id)} />}
       <div className={styles.fieldGrid}>
         {fields[kind].map((field) => {

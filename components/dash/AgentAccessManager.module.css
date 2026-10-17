@@ -20,13 +20,13 @@
 
 .sectionHeading span,
 .empty {
-  color: #6e7971;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
 .keyList,
 .logList {
-  border-top: 1px solid #dce1dc;
+  border-top: 1px solid var(--dash-border);
 }
 
 .key {
@@ -34,7 +34,7 @@
   min-height: 78px;
   align-items: center;
   gap: 14px;
-  border-bottom: 1px solid #dce1dc;
+  border-bottom: 1px solid var(--dash-border);
   padding: 13px 10px;
 }
 
@@ -51,12 +51,12 @@
 .keyInfo span,
 .keyInfo small,
 .revoked {
-  color: #69756d;
+  color: var(--dash-muted);
   font-size: 12px;
 }
 
 .revoked {
-  color: #8d3d34;
+  color: var(--dash-danger);
 }
 
 .log {
@@ -64,23 +64,23 @@
   grid-template-columns: 175px minmax(120px, 1fr) 55px minmax(100px, 0.7fr);
   align-items: center;
   gap: 12px;
-  border-bottom: 1px solid #dce1dc;
+  border-bottom: 1px solid var(--dash-border);
   padding: 11px 10px;
-  color: #546158;
+  color: var(--dash-muted);
   font-size: 12px;
 }
 
 .log code {
   overflow-wrap: anywhere;
-  color: #334239;
+  color: var(--dash-ink);
 }
 
 .log span[data-status="success"] {
-  color: #346445;
+  color: var(--dash-success);
 }
 
 .log span[data-status="failure"] {
-  color: #a0322a;
+  color: var(--dash-danger);
 }
 
 .log small {
@@ -91,7 +91,7 @@
 
 .empty {
   margin: 0;
-  border-block: 1px solid #dce1dc;
+  border-block: 1px solid var(--dash-border);
   padding: 22px 10px;
 }
 

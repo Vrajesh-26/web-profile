@@ -5,10 +5,10 @@
 
 .create {
   margin-bottom: 34px;
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--dash-border);
   border-radius: 6px;
   padding: 18px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .create h2,
@@ -26,16 +26,16 @@
 }
 
 .listHeader span {
-  color: #6e7971;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
 .item {
   margin-bottom: 10px;
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--dash-border);
   border-radius: 6px;
   padding: 14px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .form,
@@ -59,7 +59,7 @@
   min-height: 40px;
   align-items: center;
   gap: 8px;
-  color: #4d5a51;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
@@ -67,19 +67,19 @@
 .skillPicker input {
   width: 16px;
   height: 16px;
-  accent-color: #344d3d;
+  accent-color: var(--dash-primary);
 }
 
 .skillPicker {
   margin: 0;
-  border: 1px solid #e3e6e3;
+  border: 1px solid var(--dash-border);
   border-radius: 5px;
   padding: 10px;
 }
 
 .skillPicker legend {
   padding: 0 4px;
-  color: #39453e;
+  color: var(--dash-ink);
   font-size: 13px;
   font-weight: 600;
 }
@@ -94,7 +94,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #566159;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
@@ -111,11 +111,11 @@
 }
 
 .error {
-  color: #a0322a;
+  color: var(--dash-danger);
 }
 
 .success {
-  color: #42634d;
+  color: var(--dash-success);
 }
 
 .actions {
@@ -123,7 +123,7 @@
   justify-content: flex-end;
   gap: 2px;
   margin-top: 9px;
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--dash-border-soft);
   padding-top: 7px;
 }
 
@@ -132,9 +132,9 @@
 }
 
 .empty {
-  border-block: 1px solid #dce1dc;
+  border-block: 1px solid var(--dash-border);
   padding: 24px 10px;
-  color: #6e7971;
+  color: var(--dash-muted);
   font-size: 14px;
 }
 

@@ -9,7 +9,7 @@
 
 .eyebrow {
   margin: 0 0 8px;
-  color: #68756c;
+  color: var(--dash-muted);
   font-size: 12px;
   font-weight: 700;
 }
@@ -22,12 +22,12 @@
 
 .header > p:last-child {
   margin: 8px 0 0;
-  color: #667169;
+  color: var(--dash-muted);
   font-size: 14px;
 }
 
 .moduleList {
-  border-top: 1px solid #dce1dc;
+  border-top: 1px solid var(--dash-border);
 }
 
 .moduleLink {
@@ -36,14 +36,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  border-bottom: 1px solid #dce1dc;
+  border-bottom: 1px solid var(--dash-border);
   padding: 12px 10px;
-  color: #26342b;
+  color: var(--dash-ink);
   text-decoration: none;
 }
 
 .moduleLink:hover {
-  background: #edf0ed;
+  background: var(--dash-hover);
 }
 
 .moduleLink > span:first-child {
@@ -56,6 +56,6 @@
 }
 
 .moduleLink small {
-  color: #6e7971;
+  color: var(--dash-muted);
   font-size: 13px;
 }

@@ -7,13 +7,13 @@
   border-radius: 4px;
   padding: 0 9px;
   background: transparent;
-  color: #4f5b53;
+  color: var(--dash-muted, #69727b);
   font: inherit;
   font-size: 13px;
   cursor: pointer;
 }
 
 .button:hover {
-  background: #f0f2ef;
-  color: #1e2a23;
+  background: var(--dash-hover, #f0f2f4);
+  color: var(--dash-ink, #252a30);
 }

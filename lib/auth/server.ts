@@ -23,9 +23,10 @@ function createAuthServer() {
     secret,
     emailAndPassword: {
       enabled: true,
-      disableSignUp: process.env.AUTH_BOOTSTRAP !== "true",
+      disableSignUp: true,
+      minPasswordLength: 12,
     },
-    disabledPaths: process.env.AUTH_BOOTSTRAP === "true" ? [] : ["/sign-up/email"],
+    disabledPaths: ["/sign-up/email"],
     advanced: {
       useSecureCookies: process.env.NODE_ENV === "production",
       defaultCookieAttributes: {

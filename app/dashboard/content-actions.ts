@@ -112,7 +112,7 @@ function revalidateContent(kind: ContentKind) {
 
 export async function saveContent(_state: ContentActionState, formData: FormData): Promise<ContentActionState> {
   await requireOwner();
-  const kind = z.enum(["projects", "journey", "documents", "links"]).safeParse(formData.get("kind"));
+  const kind = z.enum(["projects", "journey", "documents", "links"]).safeParse(formData.get("contentKind"));
   if (!kind.success) return { error: "This item could not be saved." };
   const idValue = text(formData, "id").trim();
   const id = idValue ? z.string().uuid().safeParse(idValue) : null;
@@ -138,18 +138,24 @@ export async function saveContent(_state: ContentActionState, formData: FormData
     } else if (kind.data === "journey") {
       const parsed = schemas.journey.safeParse(formValues(formData));
       if (!parsed.success) return { error: "Check the required fields and try again." };
-      if (idValue) await db.update(journey).set(parsed.data).where(eq(journey.id, id!.data));
-      else await db.insert(journey).values(parsed.data);
+      if (idValue) {
+        const updated = await db.update(journey).set(parsed.data).where(eq(journey.id, id!.data)).returning({ id: journey.id });
+        if (!updated.length) return { error: "Journey entry not found." };
+      } else await db.insert(journey).values(parsed.data);
     } else if (kind.data === "documents") {
       const parsed = schemas.documents.safeParse(formValues(formData));
       if (!parsed.success) return { error: "Check the required fields and try again." };
-      if (idValue) await db.update(documents).set(parsed.data).where(eq(documents.id, id!.data));
-      else await db.insert(documents).values(parsed.data);
+      if (idValue) {
+        const updated = await db.update(documents).set(parsed.data).where(eq(documents.id, id!.data)).returning({ id: documents.id });
+        if (!updated.length) return { error: "Document not found." };
+      } else await db.insert(documents).values(parsed.data);
     } else {
       const parsed = schemas.links.safeParse(formValues(formData));
       if (!parsed.success) return { error: "Check the required fields and try again." };
-      if (idValue) await db.update(socialLinks).set(parsed.data).where(eq(socialLinks.id, id!.data));
-      else await db.insert(socialLinks).values(parsed.data);
+      if (idValue) {
+        const updated = await db.update(socialLinks).set(parsed.data).where(eq(socialLinks.id, id!.data)).returning({ id: socialLinks.id });
+        if (!updated.length) return { error: "Social link not found." };
+      } else await db.insert(socialLinks).values(parsed.data);
     }
   } catch {
     return { error: "This item could not be saved. Check its values and try again." };

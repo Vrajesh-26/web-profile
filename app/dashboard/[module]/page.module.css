@@ -9,7 +9,7 @@
 
 .header p {
   margin: 0 0 7px;
-  color: #68756c;
+  color: var(--dash-muted);
   font-size: 12px;
   font-weight: 700;
 }

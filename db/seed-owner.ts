@@ -1,4 +1,6 @@
 import { loadEnvConfig } from "@next/env";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 
 loadEnvConfig(process.cwd());
 
@@ -13,15 +15,26 @@ if (!email || !password || password.length < 12) {
 const ownerEmail: string = email;
 const ownerPassword: string = password;
 
-process.env.AUTH_BOOTSTRAP = "true";
-
 async function provisionOwner() {
-  const [{ getAuthServer }, { getDb }, { authUser }] = await Promise.all([
-    import("@/lib/auth/server"),
+  const [{ getDb }, { authSchema, authUser }] = await Promise.all([
     import("@/lib/db"),
     import("@/db/auth-schema"),
   ]);
-  const result = await getAuthServer().api.signUpEmail({ body: { name, email: ownerEmail, password: ownerPassword } });
+  const secret = process.env.AUTH_SECRET;
+  const baseURL = process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.NODE_ENV === "development" ? "http://localhost:3000" : undefined);
+  if (!secret || !baseURL) {
+    throw new Error("Set AUTH_SECRET and NEXT_PUBLIC_SITE_URL before provisioning the owner.");
+  }
+
+  const bootstrapAuth = betterAuth({
+    database: drizzleAdapter(getDb(), { provider: "pg", schema: authSchema }),
+    appName: "Profile Dashboard",
+    baseURL,
+    secret,
+    emailAndPassword: { enabled: true, minPasswordLength: 12 },
+  });
+  const result = await bootstrapAuth.api.signUpEmail({ body: { name, email: ownerEmail, password: ownerPassword } });
   await getDb().update(authUser).set({ emailVerified: true }).where((await import("drizzle-orm")).eq(authUser.id, result.user.id));
   console.info(`Owner account provisioned for ${ownerEmail}.`);
 }

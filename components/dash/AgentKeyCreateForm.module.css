@@ -1,9 +1,9 @@
 .section {
   margin-bottom: 26px;
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--dash-border);
   border-radius: 6px;
   padding: 18px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .section h2 {
@@ -13,7 +13,7 @@
 
 .section > p {
   margin: 0 0 16px;
-  color: #68746c;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
@@ -27,7 +27,7 @@
 .form .error {
   grid-column: 1 / -1;
   margin: 0;
-  color: #a0322a;
+  color: var(--dash-danger);
   font-size: 13px;
 }
 
@@ -36,10 +36,10 @@
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 10px;
-  border: 1px solid #d2ded4;
+  border: 1px solid var(--dash-primary-border);
   border-radius: 5px;
   padding: 12px;
-  background: #f4f8f4;
+  background: var(--dash-primary-soft);
 }
 
 .createdKey strong {
@@ -50,7 +50,7 @@
 .createdKey code {
   min-width: 0;
   overflow-wrap: anywhere;
-  color: #27412e;
+  color: var(--dash-primary);
   font-size: 13px;
 }
 

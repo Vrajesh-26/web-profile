@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getProject, getProjects } from "@/lib/data";
 import styles from "./page.module.css";
 
+export const instant = false;
+
 export async function generateStaticParams() {
   return (await getProjects()).map((project) => ({ slug: project.slug }));
 }

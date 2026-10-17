@@ -5,10 +5,10 @@
 }
 
 .section {
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--dash-border);
   border-radius: 6px;
   padding: 18px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .section h2 {
@@ -19,7 +19,7 @@
 .section > p,
 .sectionHeader p {
   margin: -6px 0 16px;
-  color: #69756d;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
@@ -42,11 +42,11 @@
 }
 
 .error {
-  color: #a0322a;
+  color: var(--dash-danger);
 }
 
 .success {
-  color: #42634d;
+  color: var(--dash-success);
 }
 
 .sectionHeader {
@@ -65,12 +65,12 @@
 }
 
 .sectionHeader > span {
-  color: #6e7971;
+  color: var(--dash-muted);
   font-size: 13px;
 }
 
 .sessionList {
-  border-top: 1px solid #e3e6e3;
+  border-top: 1px solid var(--dash-border);
 }
 
 .session {
@@ -78,7 +78,7 @@
   min-height: 72px;
   align-items: center;
   gap: 13px;
-  border-bottom: 1px solid #e3e6e3;
+  border-bottom: 1px solid var(--dash-border);
   padding: 12px 2px;
 }
 
@@ -97,7 +97,7 @@
 .session small,
 .empty {
   overflow-wrap: anywhere;
-  color: #68746c;
+  color: var(--dash-muted);
   font-size: 12px;
 }
 

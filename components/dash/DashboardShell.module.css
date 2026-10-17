@@ -1,10 +1,26 @@
 .shell {
-  --focus-ring: 0 0 0 3px #aab6ad;
+  --dash-bg: #f5f6f7;
+  --dash-surface: #fff;
+  --dash-surface-subtle: #f8f9fa;
+  --dash-ink: #252a30;
+  --dash-muted: #69727b;
+  --dash-subtle: #89929a;
+  --dash-border: #dfe3e6;
+  --dash-border-soft: #eaedef;
+  --dash-hover: #f0f2f4;
+  --dash-primary: #3c4852;
+  --dash-primary-hover: #2d363e;
+  --dash-primary-soft: #eef1f3;
+  --dash-primary-border: #d6dde2;
+  --dash-success: #356475;
+  --dash-danger: #9d332a;
+  --dash-danger-border: #e8c9c5;
+  --focus-ring: 0 0 0 3px #9ba8b1;
   display: grid;
   min-height: 100vh;
   grid-template-columns: 236px minmax(0, 1fr);
-  background: #f5f6f4;
-  color: #222c26;
+  background: var(--dash-bg);
+  color: var(--dash-ink);
 }
 
 .sidebar {
@@ -13,14 +29,14 @@
   display: flex;
   height: 100vh;
   flex-direction: column;
-  border-right: 1px solid #e0e3df;
+  border-right: 1px solid var(--dash-border);
   padding: 24px 14px 16px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .brand {
   margin: 0 8px 34px;
-  color: #25372d;
+  color: var(--dash-ink);
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
@@ -28,7 +44,7 @@
 
 .groupLabel {
   margin: 0 8px 9px;
-  color: #7b857e;
+  color: var(--dash-subtle);
   font-size: 11px;
   font-weight: 700;
 }
@@ -48,7 +64,7 @@
   border-radius: 4px;
   padding: 0 9px;
   background: transparent;
-  color: #4f5b53;
+  color: var(--dash-muted);
   font: inherit;
   font-size: 13px;
   text-align: left;
@@ -59,15 +75,15 @@
 .navigation a:hover,
 .sidebarFooter a:hover,
 .sidebarFooter button:hover {
-  background: #f0f2ef;
-  color: #1e2a23;
+  background: var(--dash-hover);
+  color: var(--dash-ink);
 }
 
 .sidebarFooter {
   display: grid;
   gap: 4px;
   margin-top: auto;
-  border-top: 1px solid #e7e9e6;
+  border-top: 1px solid var(--dash-border-soft);
   padding-top: 12px;
 }
 

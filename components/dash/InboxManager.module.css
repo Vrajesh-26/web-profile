@@ -5,10 +5,10 @@
 }
 
 .item {
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--dash-border);
   border-radius: 6px;
   padding: 18px;
-  background: #fff;
+  background: var(--dash-surface);
 }
 
 .itemHeader,
@@ -33,13 +33,13 @@
 .itemHeader a,
 .itemHeader time,
 .source {
-  color: #69756d;
+  color: var(--dash-muted);
   font-size: 12px;
 }
 
 .message {
   margin: 18px 0;
-  color: #354138;
+  color: var(--dash-ink);
   font-size: 14px;
   line-height: 1.6;
   white-space: pre-wrap;
@@ -48,7 +48,7 @@
 
 .item footer {
   justify-content: flex-start;
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--dash-border-soft);
   padding-top: 12px;
 }
 
@@ -66,9 +66,9 @@
 }
 
 .empty {
-  border-block: 1px solid #dce1dc;
+  border-block: 1px solid var(--dash-border);
   padding: 24px 10px;
-  color: #6e7971;
+  color: var(--dash-muted);
   font-size: 14px;
 }
 

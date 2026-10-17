@@ -1,5 +1,5 @@
 import { cacheLife } from "next/cache";
-import { eq, asc } from "drizzle-orm";
+import { and, eq, asc } from "drizzle-orm";
 import { getDb, hasDatabaseUrl } from "@/lib/db";
 import { documents, journey, profile, projectSkills, projects, skills } from "@/db/schema";
 import { seedData } from "@/data/seed";
@@ -78,7 +78,10 @@ export async function getProjects(): Promise<readonly ProjectSeed[]> {
   })
     .from(projects)
     .leftJoin(projectSkills, eq(projectSkills.projectId, projects.id))
-    .leftJoin(skills, eq(projectSkills.skillId, skills.id))
+    .leftJoin(skills, and(
+      eq(projectSkills.skillId, skills.id),
+      eq(skills.visible, true),
+    ))
     .where(eq(projects.visible, true))
     .orderBy(asc(projects.sortOrder));
 
