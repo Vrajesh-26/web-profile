@@ -20,6 +20,9 @@ function createAuthServer() {
     }),
     appName: "Profile Dashboard",
     baseURL,
+    trustedOrigins: process.env.NODE_ENV === "development"
+      ? ["http://localhost:*", "http://127.0.0.1:*"]
+      : [],
     secret,
     emailAndPassword: {
       enabled: true,

@@ -20,6 +20,16 @@ function deviceIcon(userAgent: string | null) {
   return /mobile|android|iphone/i.test(userAgent ?? "") ? <Smartphone size={17} /> : <Monitor size={17} />;
 }
 
+function formatUtcDateTime(value: Date) {
+  const pad = (part: number) => String(part).padStart(2, "0");
+  return `${pad(value.getUTCDate())}/${pad(value.getUTCMonth() + 1)}/${value.getUTCFullYear()} ${pad(value.getUTCHours())}:${pad(value.getUTCMinutes())}:${pad(value.getUTCSeconds())} UTC`;
+}
+
+function formatUtcDate(value: Date) {
+  const pad = (part: number) => String(part).padStart(2, "0");
+  return `${pad(value.getUTCDate())}/${pad(value.getUTCMonth() + 1)}/${value.getUTCFullYear()} UTC`;
+}
+
 export function SettingsManager({ sessions }: { sessions: readonly SessionView[] }) {
   const [state, action, pending] = useActionState<PasswordActionState, FormData>(changeOwnerPassword, null);
   return (
@@ -38,7 +48,13 @@ export function SettingsManager({ sessions }: { sessions: readonly SessionView[]
           <div className={styles.sessionList}>{sessions.map((session) => (
             <article className={styles.session} key={session.id}>
               {deviceIcon(session.userAgent)}
-              <div><strong>{session.current ? "This device" : "Signed-in device"}</strong><span>{session.userAgent || "Unknown browser"}</span><small>{session.ipAddress || "Unknown IP"} · Started {session.createdAt.toLocaleString()} · Expires {session.expiresAt.toLocaleDateString()}</small></div>
+              <div>
+                <strong>{session.current ? "This device" : "Signed-in device"}</strong>
+                <span>{session.userAgent || "Unknown browser"}</span>
+                <small>
+                  {session.ipAddress || "Unknown IP"} · Started <time dateTime={session.createdAt.toISOString()}>{formatUtcDateTime(session.createdAt)}</time> · Expires <time dateTime={session.expiresAt.toISOString()}>{formatUtcDate(session.expiresAt)}</time>
+                </small>
+              </div>
               {!session.current && <form action={revokeOwnerSession}><input type="hidden" name="id" value={session.id} /><Button variant="icon" type="submit" title="Revoke session" aria-label="Revoke this session"><Trash2 size={16} /></Button></form>}
             </article>
           ))}</div>
