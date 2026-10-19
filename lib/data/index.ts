@@ -3,6 +3,7 @@ import { and, eq, asc } from "drizzle-orm";
 import { getDb, hasDatabaseUrl } from "@/lib/db";
 import { documents, journey, profile, projectSkills, projects, skills, socialLinks } from "@/db/schema";
 import { isPublicWebUrl } from "@/lib/seo/site-url";
+import { resolveDocumentUrls } from "@/lib/utils/drive";
 import { seedData } from "@/data/seed";
 import type {
   DocumentSeed,
@@ -168,7 +169,16 @@ export async function getJourney(): Promise<readonly JourneySeed[]> {
 export async function getDocuments(): Promise<readonly DocumentSeed[]> {
   "use cache";
   cacheLife("hours");
-  if (!hasDatabaseUrl()) return seedData.documents;
+  if (!hasDatabaseUrl()) {
+    return seedData.documents.map((doc) => {
+      const resolved = resolveDocumentUrls(doc.previewUrl || doc.downloadUrl);
+      return {
+        ...doc,
+        previewUrl: resolved.previewUrl,
+        downloadUrl: resolved.downloadUrl,
+      };
+    });
+  }
 
   const rows = await getDb().select({
     title: documents.title,
@@ -178,13 +188,16 @@ export async function getDocuments(): Promise<readonly DocumentSeed[]> {
   }).from(documents)
     .where(eq(documents.visible, true))
     .orderBy(asc(documents.sortOrder));
-  return rows.map((row) => ({
-    title: row.title,
-    description: row.description,
-    format: row.format,
-    previewUrl: row.driveUrl ?? undefined,
-    downloadUrl: row.driveUrl ?? undefined,
-  }));
+  return rows.map((row) => {
+    const resolved = resolveDocumentUrls(row.driveUrl);
+    return {
+      title: row.title,
+      description: row.description,
+      format: row.format,
+      previewUrl: resolved.previewUrl,
+      downloadUrl: resolved.downloadUrl,
+    };
+  });
 }
 
 export async function getSocialLinks(): Promise<readonly { label: string; url: string }[]> {

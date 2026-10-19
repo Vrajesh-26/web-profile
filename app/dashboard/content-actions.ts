@@ -11,7 +11,13 @@ export type ContentKind = "projects" | "journey" | "documents" | "links";
 export type ContentActionState = { error?: string; success?: string } | null;
 
 const slugSchema = z.string().trim().min(1).max(100).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
-const optionalUrl = z.union([z.string().url(), z.literal("")]).transform((value) => value || null);
+const optionalUrl = z
+  .union([
+    z.string().url(),
+    z.string().regex(/^\/[a-zA-Z0-9_\-\.\/]+$/),
+    z.literal(""),
+  ])
+  .transform((value) => value || null);
 const commonFields = {
   sortOrder: z.coerce.number().int().min(0).max(9999),
   visible: z.boolean(),

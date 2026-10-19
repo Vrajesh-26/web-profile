@@ -29,11 +29,19 @@ export async function GET(
       ".avif": "image/avif",
       ".gif": "image/gif",
       ".svg": "image/svg+xml",
+      ".pdf": "application/pdf",
+      ".txt": "text/plain",
+      ".doc": "application/msword",
+      ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      ".mp4": "video/mp4",
+      ".webm": "video/webm",
+      ".json": "application/json",
     };
     const contentType = mimeTypes[ext] || "application/octet-stream";
     return new NextResponse(data, {
       headers: {
         "Content-Type": contentType,
+        "Content-Disposition": "inline",
         "Cache-Control": "public, max-age=31536000, immutable",
       },
     });
@@ -45,9 +53,25 @@ export async function GET(
   if (neonFiles) {
     try {
       const stored = await neonFiles.download(`uploads/${relativePath}`);
+      const ext = path.extname(relativePath).toLowerCase();
+      const mimeTypes: Record<string, string> = {
+        ".pdf": "application/pdf",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".png": "image/png",
+        ".webp": "image/webp",
+        ".avif": "image/avif",
+        ".gif": "image/gif",
+        ".svg": "image/svg+xml",
+        ".txt": "text/plain",
+        ".mp4": "video/mp4",
+        ".webm": "video/webm",
+      };
+      const contentType = stored.contentType || mimeTypes[ext] || "application/octet-stream";
       return new NextResponse(stored.stream(), {
         headers: {
-          "Content-Type": stored.contentType || "application/octet-stream",
+          "Content-Type": contentType,
+          "Content-Disposition": "inline",
           "Cache-Control": "public, max-age=31536000, immutable",
         },
       });

@@ -4,16 +4,19 @@ import { useActionState } from "react";
 import { ArrowDown, ArrowUp, Eye, EyeOff, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { FieldLabel, Input, Select, Textarea } from "@/components/ui/Field";
+import { FileOrUrlInput } from "@/components/dash/FileOrUrlInput";
 import { deleteContent, moveContent, saveContent, setContentVisibility, type ContentActionState, type ContentKind } from "@/app/dashboard/content-actions";
 import styles from "./EntityManager.module.css";
 
 type FieldSpec = {
   name: string;
   label: string;
-  type?: "text" | "number" | "url" | "textarea" | "select" | "checkbox";
+  type?: "text" | "number" | "url" | "textarea" | "select" | "checkbox" | "fileOrUrl";
   options?: readonly (readonly [string, string])[];
   required?: boolean;
   maxLength?: number;
+  accept?: string;
+  fileTypeHint?: "document" | "image" | "video" | "any";
 };
 
 export type EntityRow = Record<string, string | number | boolean | readonly string[] | null>;
@@ -31,8 +34,8 @@ const fields: Record<ContentKind, readonly FieldSpec[]> = {
     { name: "accent", label: "Card color", type: "select", options: [["marigold", "Marigold"], ["orchid", "Orchid"], ["oat", "Oat"], ["sage", "Sage"]] },
     { name: "liveUrl", label: "Live URL", type: "url" },
     { name: "repoUrl", label: "Repository URL", type: "url" },
-    { name: "coverUrl", label: "Cover image URL", type: "url" },
-    { name: "videoUrl", label: "Video URL", type: "url" },
+    { name: "coverUrl", label: "Cover image", type: "fileOrUrl", fileTypeHint: "image", accept: "image/*" },
+    { name: "videoUrl", label: "Video", type: "fileOrUrl", fileTypeHint: "video", accept: "video/*" },
     { name: "sortOrder", label: "Order", type: "number", required: true },
     { name: "featured", label: "Featured", type: "checkbox" },
     { name: "visible", label: "Visible", type: "checkbox" },
@@ -52,7 +55,7 @@ const fields: Record<ContentKind, readonly FieldSpec[]> = {
     { name: "description", label: "Description", type: "textarea", required: true, maxLength: 1000 },
     { name: "format", label: "Format", required: true, maxLength: 40 },
     { name: "kind", label: "Type", type: "select", options: [["resume", "Resume"], ["certificate", "Certificate"], ["other", "Other"]] },
-    { name: "driveUrl", label: "Google Drive URL", type: "url" },
+    { name: "driveUrl", label: "Document (Google Drive URL or Upload File)", type: "fileOrUrl", fileTypeHint: "document", accept: ".pdf,.doc,.docx,application/pdf" },
     { name: "sortOrder", label: "Order", type: "number", required: true },
     { name: "visible", label: "Visible", type: "checkbox" },
   ],
@@ -83,6 +86,21 @@ function EntityForm({ kind, row, skills, count }: { kind: ContentKind; row?: Ent
           }
           if (field.type === "select") {
             return <div key={field.name}><FieldLabel htmlFor={id}>{field.label}</FieldLabel><Select id={id} name={field.name} defaultValue={String(value ?? field.options?.[0]?.[0] ?? "")}>{field.options?.map(([option, label]) => <option key={option} value={option}>{label}</option>)}</Select></div>;
+          }
+          if (field.type === "fileOrUrl") {
+            return (
+              <div className={styles.wideField} key={field.name}>
+                <FieldLabel htmlFor={id}>{field.label}</FieldLabel>
+                <FileOrUrlInput
+                  id={id}
+                  name={field.name}
+                  defaultValue={String(value ?? "")}
+                  accept={field.accept}
+                  fileTypeHint={field.fileTypeHint}
+                  required={field.required}
+                />
+              </div>
+            );
           }
           return <div key={field.name}><FieldLabel htmlFor={id}>{field.label}</FieldLabel><Input id={id} name={field.name} type={field.type ?? "text"} defaultValue={String(value ?? (field.name === "sortOrder" ? count : ""))} required={field.required} maxLength={field.maxLength} min={field.type === "number" ? "0" : undefined} /></div>;
         })}
