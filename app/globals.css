@@ -13,6 +13,13 @@
   --font-display-family: var(--font-anybody), sans-serif;
   --font-body-family: var(--font-hanken-grotesk), sans-serif;
   --focus-ring: 0 0 0 3px var(--marigold);
+  --header-height: 5.5rem;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --header-height: 4.75rem;
+  }
 }
 
 @theme inline {
@@ -32,11 +39,24 @@
 
 html {
   background: var(--paper);
+  scroll-padding-top: var(--header-height);
+  scrollbar-gutter: stable;
+}
+
+#home,
+#welcome,
+#skills,
+#projects,
+#journey,
+#documents,
+#contact {
+  scroll-margin-top: var(--header-height);
 }
 
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body-family);

@@ -2,15 +2,15 @@
   display: grid;
   grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1fr);
   gap: clamp(2rem, 8vw, 8rem);
-  margin-inline: calc((min(100vw - 2rem, 72rem) - 100vw) / 2);
+  width: 100%;
   padding-block: clamp(5rem, 12vw, 10rem);
-  padding-inline: max(1rem, calc((100vw - 72rem) / 2));
+  padding-inline: max(1rem, calc((100% - 72rem) / 2));
   background: var(--oat);
 }
 
 .journey-heading {
   position: sticky;
-  top: 7rem;
+  top: var(--header-height);
   align-self: start;
 }
 

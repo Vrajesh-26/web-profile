@@ -1,13 +1,14 @@
 .site-header {
-  position: absolute;
-  z-index: 5;
-  inset: 0 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: min(100% - 2.5rem, 88rem);
-  height: 5.5rem;
-  margin-inline: auto;
+  width: 100%;
+  height: var(--header-height);
+  padding-inline: max(1.25rem, calc((100% - 88rem) / 2));
+  background: var(--deep-moss);
   color: var(--oat);
 }
 
@@ -43,10 +44,4 @@
   color: var(--deep-moss);
   font-size: 1.15rem;
   line-height: 1;
-}
-
-@media (max-width: 760px) {
-  .site-header {
-    height: 4.75rem;
-  }
 }

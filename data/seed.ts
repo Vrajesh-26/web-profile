@@ -27,6 +27,7 @@ export type ProfileSeed = {
   availability: string;
   intro: string;
   portraitAlt: string;
+  avatarUrl?: string | null;
   bio: string;
   now: string;
   location: string;
@@ -83,7 +84,8 @@ export const seedData: SeedData = {
     role: "Full-stack developer",
     availability: "Open to roles",
     intro: "I build thoughtful digital experiences from idea to interface.",
-    portraitAlt: "Illustrated portrait of Vrajesh Darji",
+    portraitAlt: "Portrait of Vrajesh Darji",
+    avatarUrl: null,
     bio: "I’m a developer who enjoys shaping useful ideas into thoughtful digital products. I like working across the stack, bringing care to the details people see and the systems that make them work.",
     now: "Exploring product ideas, sharpening my craft, and looking for a team where curious people build things that matter.",
     location: "Based in India · Open to remote",

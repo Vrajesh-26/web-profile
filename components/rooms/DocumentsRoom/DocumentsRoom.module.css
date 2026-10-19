@@ -2,9 +2,9 @@
   display: grid;
   grid-template-columns: minmax(15rem, 0.75fr) minmax(0, 1.25fr);
   gap: clamp(2rem, 8vw, 8rem);
-  margin-inline: calc((min(100vw - 2rem, 72rem) - 100vw) / 2);
+  width: 100%;
   padding-block: clamp(5rem, 12vw, 10rem);
-  padding-inline: max(1rem, calc((100vw - 72rem) / 2));
+  padding-inline: max(1rem, calc((100% - 72rem) / 2));
   background: var(--oat);
 }
 

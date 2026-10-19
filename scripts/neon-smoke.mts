@@ -18,7 +18,10 @@ async function main() {
   }
   console.info("Postgres connection OK (SELECT 1).");
 
-  const { neonFiles } = await import("../lib/storage/neon.mjs");
+  const { neonFiles } = await import("../lib/storage");
+  if (!neonFiles) {
+    throw new Error("Neon Storage is not configured. Check AWS_ENDPOINT_URL_S3 in environment.");
+  }
   const objectKey = `smoke/${randomUUID()}.txt`;
   const expected = Buffer.from(`Neon storage smoke test ${randomUUID()}`);
 

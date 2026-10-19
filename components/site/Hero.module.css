@@ -8,7 +8,8 @@
   overflow: hidden;
   background: var(--moss);
   color: var(--oat);
-  padding: 7.5rem max(1.5rem, calc((100vw - 82rem) / 2)) 5rem;
+  width: 100%;
+  padding: 7.5rem max(1.5rem, calc((100% - 82rem) / 2)) 5rem;
 }
 
 .hero-copy {
@@ -147,7 +148,7 @@
 
 .hero-index {
   position: absolute;
-  right: max(1.5rem, calc((100vw - 82rem) / 2));
+  right: max(1.5rem, calc((100% - 82rem) / 2));
   bottom: 1.8rem;
   color: rgb(244 240 230 / 65%);
   font-size: 0.8rem;

@@ -15,7 +15,6 @@ import {
   getSkills,
   getSocialLinks,
 } from "@/lib/data";
-import styles from "./page.module.css";
 
 export default async function Home() {
   const [profile, menuRooms, skills, projects, journey, documents, links] = await Promise.all([
@@ -61,13 +60,11 @@ export default async function Home() {
       />
       <main id="main-content" tabIndex={-1}>
         <Hero profile={profile} />
-        <div className={styles["page-shell"]}>
-          <AboutRoom profile={profile} />
-          <WorkRooms skills={skills} projects={projects} />
-          <JourneyRoom journey={journey} />
-          <DocumentsRoom documents={documents} />
-          <ContactRoom siteKey={process.env.TURNSTILE_SITE_KEY ?? ""} />
-        </div>
+        <AboutRoom profile={profile} />
+        <WorkRooms skills={skills} projects={projects} />
+        <JourneyRoom journey={journey} />
+        <DocumentsRoom documents={documents} />
+        <ContactRoom siteKey={process.env.TURNSTILE_SITE_KEY ?? ""} />
       </main>
     </>
   );

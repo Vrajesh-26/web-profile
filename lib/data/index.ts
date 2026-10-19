@@ -46,6 +46,7 @@ export async function getProfile(): Promise<ProfileSeed> {
     bioMd: profile.bioMd,
     portraitAlt: profile.portraitAlt,
     location: profile.location,
+    avatarUrl: profile.avatarUrl,
     availability: profile.availability,
     nowMd: profile.nowMd,
   }).from(profile).where(eq(profile.id, 1)).limit(1);
@@ -59,6 +60,7 @@ export async function getProfile(): Promise<ProfileSeed> {
     availability: row.availability === "open" ? "Open to roles" : row.availability,
     intro: row.tagline,
     portraitAlt: row.portraitAlt,
+    avatarUrl: row.avatarUrl || seedData.profile.avatarUrl || null,
     bio: row.bioMd,
     now: row.nowMd,
     location: row.location,

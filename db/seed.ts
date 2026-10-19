@@ -38,7 +38,7 @@ async function seed() {
     tagline: profileSeed.intro,
     roleLine: profileSeed.role,
     bioMd: profileSeed.bio,
-    avatarUrl: null,
+    avatarUrl: profileSeed.avatarUrl ?? null,
     resumeDriveUrl: seedData.documents[0]?.downloadUrl ?? null,
     availability: "open",
     nowMd: profileSeed.now,

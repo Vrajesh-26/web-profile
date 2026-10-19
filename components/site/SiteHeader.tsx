@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { MenuRoomSeed } from "@/lib/data";
 import { OverlayMenu } from "@/components/site/OverlayMenu";
 import styles from "./SiteHeader.module.css";
@@ -13,6 +13,15 @@ type SiteHeaderProps = {
 export function SiteHeader({ menuRooms, wordmark }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMenuOpen]);
 
   function closeMenu() {
     setIsMenuOpen(false);

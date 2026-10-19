@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ProfileSeed } from "@/lib/data";
 import styles from "./Hero.module.css";
 
@@ -101,7 +101,16 @@ export function PointerType({
   );
 }
 
-export function PortraitMask({ alt }: { alt: string }) {
+export function PortraitMask({
+  alt,
+  src,
+}: {
+  alt: string;
+  src?: string | null;
+}) {
+  const [imageError, setImageError] = useState(false);
+  const showCustomImage = Boolean(src) && !imageError;
+
   return (
     <div className={styles["portrait-mask"]}>
       <svg
@@ -120,30 +129,44 @@ export function PortraitMask({ alt }: { alt: string }) {
           </linearGradient>
         </defs>
         <g clipPath="url(#portrait-arch)">
-          <path fill="url(#portrait-sky)" d="M0 0h520v620H0z" />
-          <circle cx="394" cy="134" r="62" fill="#f4f0e6" opacity=".65" />
-          <path
-            d="M0 427c82-62 133-74 206-23 77 54 121 45 314-48v264H0z"
-            fill="#49664e"
-            opacity=".72"
-          />
-          <path d="M97 620c17-124 72-196 163-196s146 72 163 196z" fill="#243b2d" />
-          <path
-            d="M175 260c0-67 34-111 85-111s85 44 85 111v32c0 63-36 108-85 108s-85-45-85-108z"
-            fill="#c8815c"
-          />
-          <path
-            d="M165 267c-14-92 26-155 102-155 66 0 97 50 93 120-24-28-54-40-87-40-29 30-63 44-108 42z"
-            fill="#243b2d"
-          />
-          <path d="M222 295h2m74 0h2" stroke="#243b2d" strokeLinecap="round" strokeWidth="8" />
-          <path
-            d="M239 333c13 10 29 10 42 0"
-            fill="none"
-            stroke="#8c4d3d"
-            strokeLinecap="round"
-            strokeWidth="6"
-          />
+          {showCustomImage ? (
+            <image
+              href={src!}
+              x="42"
+              y="28"
+              width="436"
+              height="550"
+              preserveAspectRatio="xMidYMid slice"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <>
+              <path fill="url(#portrait-sky)" d="M0 0h520v620H0z" />
+              <circle cx="394" cy="134" r="62" fill="#f4f0e6" opacity=".65" />
+              <path
+                d="M0 427c82-62 133-74 206-23 77 54 121 45 314-48v264H0z"
+                fill="#49664e"
+                opacity=".72"
+              />
+              <path d="M97 620c17-124 72-196 163-196s146 72 163 196z" fill="#243b2d" />
+              <path
+                d="M175 260c0-67 34-111 85-111s85 44 85 111v32c0 63-36 108-85 108s-85-45-85-108z"
+                fill="#c8815c"
+              />
+              <path
+                d="M165 267c-14-92 26-155 102-155 66 0 97 50 93 120-24-28-54-40-87-40-29 30-63 44-108 42z"
+                fill="#243b2d"
+              />
+              <path d="M222 295h2m74 0h2" stroke="#243b2d" strokeLinecap="round" strokeWidth="8" />
+              <path
+                d="M239 333c13 10 29 10 42 0"
+                fill="none"
+                stroke="#8c4d3d"
+                strokeLinecap="round"
+                strokeWidth="6"
+              />
+            </>
+          )}
         </g>
         <path
           d="M42 578V242C42 118 139 28 260 28s218 90 218 214v336"
@@ -191,7 +214,7 @@ export function Hero({ profile }: HeroProps) {
           </a>
         </div>
       </div>
-      <PortraitMask alt={profile.portraitAlt} />
+      <PortraitMask alt={profile.portraitAlt} src={profile.avatarUrl} />
       <span className={styles["hero-index"]} aria-hidden="true">
         Scroll to explore
       </span>

@@ -11,56 +11,85 @@ type SkillsRoomProps = {
 };
 
 function SkillsTicker({ skills }: { skills: readonly SkillSeed[] }) {
-  const tickerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ticker = tickerRef.current;
-    if (!ticker) return;
+    const track = trackRef.current;
+    if (!track) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let previousY = window.scrollY;
-    let previousTime = performance.now();
-    let frame = 0;
+    if (reducedMotion.matches) return;
 
-    const updateTicker = () => {
-      const now = performance.now();
-      const currentY = window.scrollY;
-      const elapsed = Math.max(now - previousTime, 1);
-      const velocity = Math.abs(currentY - previousY) / elapsed;
-      const duration = Math.max(7, Math.min(24, 24 / (1 + velocity * 1.5)));
+    if (typeof track.getAnimations !== "function") return;
 
-      ticker.style.setProperty("--ticker-duration", `${duration}s`);
-      ticker.style.setProperty(
-        "--ticker-direction",
-        currentY < previousY ? "reverse" : "normal",
-      );
-      previousY = currentY;
-      previousTime = now;
-      frame = 0;
+    let targetRate = 1;
+    let currentRate = 1;
+    let rafId = 0;
+    let lastScrollY = window.scrollY;
+    let lastScrollTime = performance.now();
+
+    const tick = () => {
+      currentRate += (targetRate - currentRate) * 0.12;
+      targetRate += (1 - targetRate) * 0.05;
+
+      const animations = track.getAnimations();
+      if (animations.length > 0) {
+        const safeRate = Number.isFinite(currentRate)
+          ? Math.max(0.5, Math.min(2.0, currentRate))
+          : 1;
+        animations[0].playbackRate = safeRate;
+      }
+
+      if (Math.abs(currentRate - 1) > 0.01 || Math.abs(targetRate - 1) > 0.01) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        currentRate = 1;
+        targetRate = 1;
+        const animations = track.getAnimations();
+        if (animations.length > 0) {
+          animations[0].playbackRate = 1;
+        }
+        rafId = 0;
+      }
     };
 
     const onScroll = () => {
-      if (!reducedMotion.matches && frame === 0) {
-        frame = window.requestAnimationFrame(updateTicker);
+      const now = performance.now();
+      const currentScrollY = window.scrollY;
+      const elapsed = Math.max(now - lastScrollTime, 16);
+      const delta = Math.abs(currentScrollY - lastScrollY);
+      const velocity = delta / elapsed;
+
+      const boost = Math.min(1.0, velocity * 0.6);
+      targetRate = Math.min(2.0, 1 + boost);
+
+      lastScrollY = currentScrollY;
+      lastScrollTime = now;
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(tick);
       }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
-  const tickerItems = [...skills, ...skills];
+  const tickerItems = [...skills, ...skills, ...skills, ...skills];
 
   return (
     <div
       className={styles["skills-ticker"]}
-      ref={tickerRef}
       aria-label={`Skills: ${skills.map((skill) => skill.name).join(", ")}`}
     >
-      <div className={styles["skills-track"]} aria-hidden="true">
+      <div
+        className={styles["skills-track"]}
+        ref={trackRef}
+        aria-hidden="true"
+      >
         {tickerItems.map((skill, index) => (
           <span key={`${skill.name}-${index}`}>
             {skill.name}

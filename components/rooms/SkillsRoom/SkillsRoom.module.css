@@ -1,7 +1,8 @@
 .skills-room {
-  margin-inline: calc((min(100vw - 2rem, 72rem) - 100vw) / 2);
+  --room-inline: max(1rem, calc((100% - 72rem) / 2));
+  width: 100%;
   padding-block: clamp(4rem, 10vw, 8rem);
-  padding-inline: max(1rem, calc((100vw - 72rem) / 2));
+  padding-inline: var(--room-inline);
   background: var(--marigold);
   color: var(--deep-moss);
 }
@@ -37,21 +38,23 @@
 }
 
 .skills-ticker {
-  --ticker-duration: 24s;
-  --ticker-direction: normal;
   overflow: hidden;
-  margin: clamp(3rem, 7vw, 6rem) calc((min(100vw - 2rem, 72rem) - 100vw) / 2);
-  border-block: 1px solid color-mix(in srgb, var(--deep-moss), transparent 72%);
+  margin: clamp(3rem, 7vw, 6rem) calc(-1 * var(--room-inline));
+  border-block: 1px solid color-mix(in srgb, var(--deep-moss) 28%, transparent);
   padding-block: 1.1rem;
   color: var(--deep-moss);
+}
+
+.skills-ticker:hover .skills-track {
+  animation-play-state: paused;
 }
 
 .skills-track {
   display: flex;
   width: max-content;
   align-items: center;
-  animation: ticker-scroll var(--ticker-duration) linear infinite;
-  animation-direction: var(--ticker-direction);
+  animation: ticker-scroll 32s linear infinite;
+  will-change: transform;
 }
 
 .skills-track > span {
@@ -65,14 +68,18 @@
 }
 
 .ticker-separator {
-  color: var(--marigold);
+  color: color-mix(in srgb, var(--deep-moss) 55%, transparent);
   font-family: var(--font-body-family);
   font-size: 0.85em;
+  user-select: none;
 }
 
 @keyframes ticker-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -112,7 +119,7 @@
 .skill-tag,
 .clear-filter {
   min-height: 2.45rem;
-  border: 1px solid color-mix(in srgb, var(--deep-moss), transparent 68%);
+  border: 1px solid color-mix(in srgb, var(--deep-moss) 40%, transparent);
   border-radius: 999px;
   background: transparent;
   color: var(--deep-moss);
@@ -120,11 +127,18 @@
   font: inherit;
   font-size: 0.88rem;
   cursor: pointer;
-  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 .skill-tag:hover {
   transform: translateY(-2px);
+  background: color-mix(in srgb, var(--deep-moss) 10%, transparent);
+}
+
+.skill-tag:focus-visible,
+.clear-filter:focus-visible {
+  outline: 2px solid var(--deep-moss);
+  outline-offset: 2px;
 }
 
 .skill-tag.is-selected {
