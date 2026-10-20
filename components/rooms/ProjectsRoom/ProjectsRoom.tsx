@@ -22,13 +22,22 @@ export function ProjectCard({
     >
       <div className={styles["project-art"]}>
         {project.coverUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.coverUrl}
-            alt={`${project.title} preview`}
-            className={styles["project-cover-img"]}
-            loading="lazy"
-          />
+          <Link
+            href={`/projects/${project.slug}`}
+            className={styles["project-art-link"]}
+            aria-label={`View ${project.title} case study`}
+          >
+            <div className={styles["project-cover-stage"]}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.coverUrl}
+                alt={`${project.title} preview`}
+                className={styles["project-cover-img"]}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </Link>
         ) : (
           <div className={styles["art-fallback"]} aria-hidden="true">
             <span className={styles["art-orbit"]} />
