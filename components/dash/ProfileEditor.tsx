@@ -3,6 +3,7 @@
 import { useActionState, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { FieldLabel, Input, Select, Textarea } from "@/components/ui/Field";
+import { FileOrUrlInput } from "@/components/dash/FileOrUrlInput";
 import { saveProfile, uploadProfilePhoto, type ProfileActionState } from "@/app/dashboard/profile/actions";
 import type { profile } from "@/db/schema";
 import styles from "./ProfileEditor.module.css";
@@ -112,7 +113,24 @@ export function ProfileEditor({ profile: current }: { profile: Profile | null })
         {profileFields.map(([name, label]) => (
           <div key={name}>
             <FieldLabel htmlFor={`profile-${name}`}>{label}</FieldLabel>
-            <Input id={`profile-${name}`} name={name} defaultValue={current?.[name] ?? ""} required={name !== "resumeDriveUrl"} maxLength={name === "portraitAlt" ? 300 : 240} />
+            {name === "resumeDriveUrl" ? (
+              <FileOrUrlInput
+                id={`profile-${name}`}
+                name={name}
+                defaultValue={current?.[name] ?? ""}
+                fileTypeHint="document"
+                accept=".pdf,.doc,.docx,application/pdf"
+                placeholder="Paste Google Drive link or upload resume PDF"
+              />
+            ) : (
+              <Input
+                id={`profile-${name}`}
+                name={name}
+                defaultValue={current?.[name] ?? ""}
+                required
+                maxLength={name === "portraitAlt" ? 300 : 240}
+              />
+            )}
           </div>
         ))}
         <div>

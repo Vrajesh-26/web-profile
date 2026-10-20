@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { DocumentSeed } from "@/lib/data";
+import { resolveDocumentUrls } from "@/lib/utils/drive";
 import styles from "./DocumentsRoom.module.css";
 
 export function DriveModal({
@@ -12,6 +13,7 @@ export function DriveModal({
   onClose: () => void;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
     dialogRef.current?.showModal();
@@ -20,6 +22,12 @@ export function DriveModal({
   function closeModal() {
     dialogRef.current?.close();
   }
+
+  const resolved = resolveDocumentUrls(item.previewUrl || item.downloadUrl);
+  const previewUrl = resolved.previewUrl;
+  const downloadUrl = resolved.downloadUrl || item.downloadUrl;
+  const openUrl = resolved.openUrl || downloadUrl || previewUrl;
+  const isGoogleDrive = resolved.isGoogleDrive;
 
   return (
     <dialog
@@ -40,30 +48,52 @@ export function DriveModal({
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      {item.previewUrl ? (
-        <iframe
-          className={styles["document-preview"]}
-          src={item.previewUrl}
-          title={`${item.title} preview`}
-          allow="autoplay"
-        />
+
+      {isGoogleDrive && openUrl && (
+        <div className={styles["preview-notice"]}>
+          <span>Viewing via Google Drive</span>
+          <a href={openUrl} target="_blank" rel="noopener noreferrer">
+            Open directly in Drive ↗
+          </a>
+        </div>
+      )}
+
+      {previewUrl ? (
+        <div className={styles["document-preview-wrapper"]}>
+          {!iframeLoaded && (
+            <div className={styles["preview-spinner"]}>
+              <span aria-hidden="true">⏳</span>
+              <p>Loading document preview...</p>
+            </div>
+          )}
+          <iframe
+            className={`${styles["document-preview"]} ${!iframeLoaded ? styles["document-preview-loading"] : ""}`}
+            src={previewUrl}
+            title={`${item.title} preview`}
+            allow="autoplay"
+            onLoad={() => setIframeLoaded(true)}
+          />
+        </div>
       ) : (
         <div className={styles["preview-empty"]}>
           <span aria-hidden="true">↗</span>
           <p>
-            This preview is ready for a Google Drive share link. Add the
-            document link in the seed data to show it here.
+            This document does not have a preview link yet.
           </p>
         </div>
       )}
+
       <div className={styles["modal-actions"]}>
-        {item.downloadUrl ? (
-          <a href={item.downloadUrl} target="_blank" rel="noreferrer">
-            Open or download
+        {openUrl ? (
+          <a href={openUrl} target="_blank" rel="noopener noreferrer">
+            Open in new tab ↗
           </a>
-        ) : (
-          <span>Share link not connected</span>
-        )}
+        ) : null}
+        {downloadUrl && downloadUrl !== openUrl ? (
+          <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
+            Download
+          </a>
+        ) : null}
         <button type="button" onClick={closeModal}>
           Done
         </button>
