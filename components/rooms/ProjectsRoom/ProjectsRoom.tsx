@@ -20,11 +20,23 @@ export function ProjectCard({
         } as React.CSSProperties
       }
     >
-      <div className={styles["project-art"]} aria-hidden="true">
-        <span className={styles["art-orbit"]} />
-        <span className={styles["art-sun"]} />
-        <span className={styles["art-landscape"]} />
-        <span className={styles["art-label"]}>{project.title}</span>
+      <div className={styles["project-art"]}>
+        {project.coverUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.coverUrl}
+            alt={`${project.title} preview`}
+            className={styles["project-cover-img"]}
+            loading="lazy"
+          />
+        ) : (
+          <div className={styles["art-fallback"]} aria-hidden="true">
+            <span className={styles["art-orbit"]} />
+            <span className={styles["art-sun"]} />
+            <span className={styles["art-landscape"]} />
+            <span className={styles["art-label"]}>{project.title}</span>
+          </div>
+        )}
       </div>
       <div className={styles["project-copy"]}>
         <div className={styles["project-meta"]}>

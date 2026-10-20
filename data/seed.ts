@@ -50,6 +50,8 @@ export type ProjectSeed = {
   caseStudy: string[];
   liveUrl?: string;
   repoUrl?: string;
+  coverUrl?: string;
+  videoUrl?: string;
 };
 
 export type JourneySeed = {

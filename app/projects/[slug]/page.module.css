@@ -78,7 +78,22 @@
     linear-gradient(140deg, var(--case-accent), var(--deep-moss));
 }
 
-.case-art span {
+.case-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.case-art-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.case-art-fallback span {
   position: absolute;
   width: 58%;
   aspect-ratio: 1;
@@ -87,11 +102,11 @@
   transform: scaleY(0.48) rotate(-25deg);
 }
 
-.case-art span:nth-child(2) {
+.case-art-fallback span:nth-child(2) {
   width: 42%;
 }
 
-.case-art span:nth-child(3) {
+.case-art-fallback span:nth-child(3) {
   width: 24%;
   border: 0;
   background: var(--oat);

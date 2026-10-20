@@ -98,6 +98,8 @@ export async function getProjects(): Promise<readonly ProjectSeed[]> {
       bodyMd: projects.bodyMd,
       liveUrl: projects.liveUrl,
       repoUrl: projects.repoUrl,
+      coverUrl: projects.coverUrl,
+      videoUrl: projects.videoUrl,
     },
     skillName: skills.name,
   })
@@ -127,6 +129,8 @@ export async function getProjects(): Promise<readonly ProjectSeed[]> {
         caseStudy: project.bodyMd.split("\n\n").filter(Boolean),
         liveUrl: project.liveUrl ?? undefined,
         repoUrl: project.repoUrl ?? undefined,
+        coverUrl: project.coverUrl ?? undefined,
+        videoUrl: project.videoUrl ?? undefined,
       };
       byId.set(project.id, mapped);
     }
