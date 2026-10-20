@@ -51,6 +51,17 @@ export function FileOrUrlInput({
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const maxBytes = 4.5 * 1024 * 1024;
+    if (file.size > maxBytes) {
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      setStatusMessage({
+        type: "error",
+        text: `File is too large (${sizeMb} MB). Direct upload limit is 4.5 MB. For larger files, paste a URL or Google Drive link.`,
+      });
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+
     setUploading(true);
     setStatusMessage(null);
 

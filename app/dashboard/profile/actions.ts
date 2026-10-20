@@ -45,8 +45,8 @@ export async function uploadProfilePhoto(formData: FormData): Promise<{ url?: st
     return { error: "Please upload an image file (JPEG, PNG, WebP, AVIF, or GIF)." };
   }
 
-  if (file.size > 8 * 1024 * 1024) {
-    return { error: "Image size must be less than 8MB." };
+  if (file.size > 4.5 * 1024 * 1024) {
+    return { error: "Image size must be less than 4.5MB." };
   }
 
   const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";

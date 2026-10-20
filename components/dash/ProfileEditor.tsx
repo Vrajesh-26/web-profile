@@ -27,6 +27,14 @@ export function ProfileEditor({ profile: current }: { profile: Profile | null })
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const maxBytes = 4.5 * 1024 * 1024;
+    if (file.size > maxBytes) {
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      setUploadStatus(`Image is too large (${sizeMb} MB). Maximum size is 4.5 MB.`);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+
     setUploading(true);
     setUploadStatus("Uploading picture...");
     const formData = new FormData();
