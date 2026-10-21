@@ -73,5 +73,5 @@ desktop.ini
  
 .neon
 .agents/
-tests/ 
 NEON_OBJECT_STORAGE_SETUP.md
+public/

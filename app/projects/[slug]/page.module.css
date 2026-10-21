@@ -69,16 +69,39 @@
 
 .case-art {
   position: relative;
-  display: grid;
-  height: clamp(18rem, 50vw, 38rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(18rem, 45vw, 36rem);
+  padding: clamp(1rem, 3vw, 2.5rem);
   overflow: hidden;
-  place-items: center;
   background:
     radial-gradient(ellipse at 50% 90%, rgb(244 240 230 / 50%), transparent 50%),
     linear-gradient(140deg, var(--case-accent), var(--deep-moss));
 }
 
-.case-art span {
+.case-cover-img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: clamp(16rem, 40vw, 32rem);
+  object-fit: contain;
+  border-radius: clamp(0.5rem, 1vw, 0.75rem);
+  box-shadow:
+    0 16px 40px -10px rgb(0 0 0 / 40%),
+    0 0 0 1px rgb(255 255 255 / 10%);
+  display: block;
+}
+
+.case-art-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.case-art-fallback span {
   position: absolute;
   width: 58%;
   aspect-ratio: 1;
@@ -87,11 +110,11 @@
   transform: scaleY(0.48) rotate(-25deg);
 }
 
-.case-art span:nth-child(2) {
+.case-art-fallback span:nth-child(2) {
   width: 42%;
 }
 
-.case-art span:nth-child(3) {
+.case-art-fallback span:nth-child(3) {
   width: 24%;
   border: 0;
   background: var(--oat);

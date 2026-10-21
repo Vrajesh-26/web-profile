@@ -52,10 +52,21 @@ export default async function CaseStudyPage({
         <p className={styles["case-summary"]}>{project.description}</p>
         <p className={styles["case-outcome"]}>{project.outcome}</p>
       </header>
-      <div className={styles["case-art"]} aria-hidden="true">
-        <span />
-        <span />
-        <span />
+      <div className={styles["case-art"]}>
+        {project.coverUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.coverUrl}
+            alt={`${project.title} cover`}
+            className={styles["case-cover-img"]}
+          />
+        ) : (
+          <div className={styles["case-art-fallback"]} aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+        )}
       </div>
       <div className={styles["case-content"]}>
         {project.caseStudy.map((paragraph, index) => (

@@ -29,10 +29,10 @@ export async function uploadAsset(formData: FormData): Promise<UploadResult> {
     return { error: "No file was provided for upload." };
   }
 
-  // 25MB maximum file size limit
-  const maxBytes = 25 * 1024 * 1024;
+  // 4.5MB maximum file size limit (Vercel serverless payload boundary)
+  const maxBytes = 4.5 * 1024 * 1024;
   if (file.size > maxBytes) {
-    return { error: "File exceeds the 25MB size limit." };
+    return { error: "File exceeds the 4.5MB size limit. For larger files, paste a URL or Google Drive link." };
   }
 
   const originalName = file.name || "document";
