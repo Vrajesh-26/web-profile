@@ -87,8 +87,31 @@
   grid-column: 1 / -1;
 }
 
+.verification {
+  grid-column: 1 / -1;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+}
+
+.verification-error {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--marigold);
+  font-size: 0.85rem;
+}
+
 .contact-form > button,
 .contact-success > button {
+  grid-column: 1 / -1;
   display: inline-flex;
   min-height: 3.2rem;
   align-items: center;
@@ -103,20 +126,6 @@
   font: inherit;
   font-weight: 700;
   cursor: pointer;
-}
-
-.form-note {
-  align-self: center;
-  margin: 0;
-  color: rgb(239 233 216 / 60%);
-  font-size: 0.76rem;
-}
-
-.verification-error {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
 }
 
 .verification-error > button {
