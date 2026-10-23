@@ -1,19 +1,16 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt = "Vrajesh Darji, Software Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Load fonts once at module scope — no network dependency, bundled with the app
+const anybodyBold = await readFile(join(process.cwd(), "app/fonts/anybody-bold.ttf"));
+const hankenRegular = await readFile(join(process.cwd(), "app/fonts/hanken-grotesk-regular.ttf"));
+
 export default async function OpenGraphImage() {
-  // Load fonts from local files — bundled at build time, no external CDN dependency
-  const [anybodyBold, hankenRegular] = await Promise.all([
-    fetch(new URL("./fonts/anybody-bold.ttf", import.meta.url)).then((r) =>
-      r.arrayBuffer()
-    ),
-    fetch(new URL("./fonts/hanken-grotesk-regular.ttf", import.meta.url)).then(
-      (r) => r.arrayBuffer()
-    ),
-  ]);
 
   return new ImageResponse(
     (
