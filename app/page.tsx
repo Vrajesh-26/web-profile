@@ -64,7 +64,10 @@ export default async function Home() {
         <WorkRooms skills={skills} projects={projects} />
         <JourneyRoom journey={journey} />
         <DocumentsRoom documents={documents} />
-        <ContactRoom siteKey={process.env.TURNSTILE_SITE_KEY ?? ""} />
+        <ContactRoom
+          siteKey={process.env.TURNSTILE_SITE_KEY ?? ""}
+          web3FormsKey={process.env.WEB3FORMS_ACCESS_KEY ?? ""}
+        />
       </main>
     </>
   );

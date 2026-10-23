@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "DENY" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-          { key: "Content-Security-Policy-Report-Only", value: "default-src 'self'; img-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https://drive.google.com https://challenges.cloudflare.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" },
+          { key: "Content-Security-Policy-Report-Only", value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https://drive.google.com https://challenges.cloudflare.com https://*.cloudflare.com https://vercel.live; connect-src 'self' https://challenges.cloudflare.com https://api.web3forms.com https://vercel.live wss://vercel.live; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" },
         ],
       },
       {

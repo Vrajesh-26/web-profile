@@ -6,10 +6,10 @@ import { contactRequests, rateLimits } from "@/db/schema";
 import { getDb } from "@/lib/db";
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1).max(120),
-  email: z.string().trim().email().max(254),
-  message: z.string().trim().min(10).max(5000),
-  turnstileToken: z.string().min(1).max(2048),
+  name: z.string().trim().min(1, "Name is required.").max(120),
+  email: z.string().trim().email("Please enter a valid email address.").max(254),
+  message: z.string().trim().min(2, "Message must be at least 2 characters.").max(5000),
+  turnstileToken: z.string().min(1, "Verification token missing.").max(2048),
 });
 
 const RATE_WINDOW_MINUTES = 15;
@@ -22,6 +22,11 @@ function failure(message: string, status: number) {
 async function verifyTurnstile(token: string, remoteIp: string | null) {
   const secret = process.env.TURNSTILE_SECRET_KEY;
   if (!secret) throw new Error("Turnstile is not configured");
+
+  // If using Cloudflare's official dummy test secret, bypass external round-trip for speed
+  if (secret === "1x0000000000000000000000000000000AA") {
+    return true;
+  }
 
   const body = new URLSearchParams({ secret, response: token });
   if (remoteIp) body.set("remoteip", remoteIp);
@@ -77,8 +82,9 @@ export async function POST(request: Request) {
 
   const parsed = contactSchema.safeParse(payload);
   if (!parsed.success) {
+    const errorMsg = parsed.error.issues[0]?.message ?? "Please check the submitted fields.";
     return NextResponse.json(
-      { error: "Please check the submitted fields." },
+      { error: errorMsg },
       { status: 400 },
     );
   }

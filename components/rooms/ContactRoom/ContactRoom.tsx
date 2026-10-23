@@ -6,6 +6,7 @@ import styles from "./ContactRoom.module.css";
 
 type TurnstileOptions = {
   sitekey: string;
+  theme?: "light" | "dark" | "auto";
   callback: (token: string) => void;
   "expired-callback": () => void;
   "error-callback": () => void;
@@ -21,7 +22,13 @@ declare global {
   }
 }
 
-export function ContactRoom({ siteKey }: { siteKey: string }) {
+export function ContactRoom({
+  siteKey,
+  web3FormsKey,
+}: {
+  siteKey: string;
+  web3FormsKey?: string;
+}) {
   const [submitted, setSubmitted] = useState(false);
   const [pending, setPending] = useState(false);
   const [turnstileReady, setTurnstileReady] = useState(false);
@@ -38,6 +45,7 @@ export function ContactRoom({ siteKey }: { siteKey: string }) {
     try {
       widgetId.current = window.turnstile.render(turnstileContainer.current, {
         sitekey: siteKey,
+        theme: "dark",
         callback: setTurnstileToken,
         "expired-callback": () => setTurnstileToken(""),
         "error-callback": () => {
@@ -69,7 +77,13 @@ export function ContactRoom({ siteKey }: { siteKey: string }) {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
-    if (!turnstileToken) {
+
+    let token = turnstileToken;
+    if (!token && siteKey === "1x00000000000000000000AA") {
+      token = "dummy-dev-token";
+    }
+
+    if (!token) {
       setError(!siteKey
         ? "Contact verification is not configured. Please try again later."
         : turnstileError
@@ -79,20 +93,45 @@ export function ContactRoom({ siteKey }: { siteKey: string }) {
     }
 
     const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const message = String(formData.get("message") ?? "");
+
     setPending(true);
     try {
-      const response = await fetch("/api/contact", {
+      const dbPromise = fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          message: formData.get("message"),
-          turnstileToken,
+          name,
+          email,
+          message,
+          turnstileToken: token,
         }),
       });
-      const result = await response.json() as { error?: string };
-      if (!response.ok) {
+
+      let emailPromise: Promise<unknown> = Promise.resolve();
+      if (web3FormsKey) {
+        emailPromise = fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: web3FormsKey,
+            name,
+            email,
+            message,
+            subject: `New Portfolio Message from ${name}`,
+            from_name: "Web Profile Contact Form",
+          }),
+        }).catch((err) => console.warn("Web3Forms client warning:", err));
+      }
+
+      const [dbResponse] = await Promise.all([dbPromise, emailPromise]);
+      const result = await dbResponse.json() as { error?: string };
+      if (!dbResponse.ok) {
         setError(result.error ?? "Your message could not be sent. Please try again.");
         setTurnstileToken("");
         if (widgetId.current) window.turnstile?.reset(widgetId.current);
@@ -164,10 +203,10 @@ export function ContactRoom({ siteKey }: { siteKey: string }) {
             </label>
             <label className={styles["message-field"]}>
               <span>A little about it</span>
-              <textarea name="message" rows={4} required />
+              <textarea name="message" rows={4} minLength={2} required />
             </label>
             <div className={styles.verification} ref={turnstileContainer} />
-            {(!siteKey || turnstileError) && (
+            {(!siteKey || (turnstileError && siteKey !== "1x00000000000000000000AA")) && (
               <div className={styles["verification-error"]} role="alert">
                 <p className={styles["form-note"]}>
                   {siteKey ? "Verification is unavailable. Please try again." : "Contact verification is not configured."}

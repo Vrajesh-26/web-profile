@@ -14,6 +14,7 @@ export async function updateContactStatus(formData: FormData) {
   if (!id.success || !status.success) throw new Error("Invalid contact request.");
   await getDb().update(contactRequests).set({ status: status.data }).where(eq(contactRequests.id, id.data));
   revalidatePath("/dashboard/inbox");
+  revalidatePath("/dashboard/[module]", "page");
 }
 
 export async function deleteContactRequest(formData: FormData) {
@@ -22,4 +23,5 @@ export async function deleteContactRequest(formData: FormData) {
   if (!id.success) throw new Error("Invalid contact request.");
   await getDb().delete(contactRequests).where(eq(contactRequests.id, id.data));
   revalidatePath("/dashboard/inbox");
+  revalidatePath("/dashboard/[module]", "page");
 }
