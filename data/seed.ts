@@ -54,7 +54,12 @@ export type ProjectSeed = {
   videoUrl?: string;
 };
 
+export const journeyCategories = ["education", "experience", "achievement", "certification"] as const;
+
+export type JourneyCategory = (typeof journeyCategories)[number];
+
 export type JourneySeed = {
+  category: JourneyCategory;
   period: string;
   title: string;
   organization: string;
@@ -239,6 +244,7 @@ export const seedData: SeedData = {
   ],
   journey: [
     {
+      category: "experience",
       period: "Today",
       title: "Building with curiosity",
       organization: "Independent practice",
@@ -246,6 +252,7 @@ export const seedData: SeedData = {
         "Working across product thinking and full-stack development while exploring what makes digital tools feel genuinely useful.",
     },
     {
+      category: "experience",
       period: "Recently",
       title: "Turning ideas into interfaces",
       organization: "Selected projects",
@@ -253,6 +260,7 @@ export const seedData: SeedData = {
         "Practiced taking a project from its first sketch through implementation, refining the experience as the details became real.",
     },
     {
+      category: "experience",
       period: "Before",
       title: "Finding my footing in software",
       organization: "Learning by making",

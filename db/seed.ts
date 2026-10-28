@@ -98,7 +98,7 @@ async function seed() {
 
   await db.insert(schema.journey).values(
     seedData.journey.map((item, sortOrder) => ({
-      kind: "experience" as const,
+      category: item.category,
       org: item.organization,
       title: item.title,
       startDate: item.period,

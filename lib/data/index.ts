@@ -17,6 +17,7 @@ import type {
 
 export type {
   DocumentSeed,
+  JourneyCategory,
   JourneySeed,
   MenuRoomSeed,
   ProfileSeed,
@@ -154,6 +155,7 @@ export async function getJourney(): Promise<readonly JourneySeed[]> {
   if (!hasDatabaseUrl()) return seedData.journey;
 
   const rows = await getDb().select({
+    category: journey.category,
     startDate: journey.startDate,
     endDate: journey.endDate,
     title: journey.title,
@@ -163,6 +165,7 @@ export async function getJourney(): Promise<readonly JourneySeed[]> {
     .where(eq(journey.visible, true))
     .orderBy(asc(journey.sortOrder));
   return rows.map((row) => ({
+    category: row.category,
     period: [row.startDate, row.endDate].filter(Boolean).join(" - "),
     title: row.title,
     organization: row.org,

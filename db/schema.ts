@@ -23,15 +23,15 @@ export const projectStatusEnum = pgEnum("project_status", [
   "building",
   "archived",
 ]);
-export const journeyKindEnum = pgEnum("journey_kind", [
+export const journeyCategoryEnum = pgEnum("journey_category", [
   "education",
   "experience",
-  "certificate",
-  "award",
+  "achievement",
+  "certification",
 ]);
 export const documentKindEnum = pgEnum("document_kind", [
   "resume",
-  "certificate",
+  "certification",
   "other",
 ]);
 export const contactSourceEnum = pgEnum("contact_source", ["human", "agent"]);
@@ -109,7 +109,7 @@ export const projectSkills = pgTable(
 
 export const journey = pgTable("journey", {
   id: uuid("id").primaryKey().defaultRandom(),
-  kind: journeyKindEnum("kind").notNull().default("experience"),
+  category: journeyCategoryEnum("category").notNull().default("experience"),
   org: text("org").notNull(),
   title: text("title").notNull(),
   startDate: text("start_date"),

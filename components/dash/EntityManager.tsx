@@ -41,7 +41,7 @@ const fields: Record<ContentKind, readonly FieldSpec[]> = {
     { name: "visible", label: "Visible", type: "checkbox" },
   ],
   journey: [
-    { name: "kind", label: "Type", type: "select", options: [["education", "Education"], ["experience", "Experience"], ["certificate", "Certificate"], ["award", "Award"]] },
+    { name: "category", label: "Category", type: "select", required: true, options: [["education", "Education"], ["experience", "Experience"], ["achievement", "Achievement"], ["certification", "Certification"]] },
     { name: "title", label: "Title", required: true, maxLength: 180 },
     { name: "org", label: "Organization", required: true, maxLength: 180 },
     { name: "startDate", label: "Start date", maxLength: 80 },
@@ -54,7 +54,7 @@ const fields: Record<ContentKind, readonly FieldSpec[]> = {
     { name: "title", label: "Title", required: true, maxLength: 180 },
     { name: "description", label: "Description", type: "textarea", required: true, maxLength: 1000 },
     { name: "format", label: "Format", required: true, maxLength: 40 },
-    { name: "kind", label: "Type", type: "select", options: [["resume", "Resume"], ["certificate", "Certificate"], ["other", "Other"]] },
+    { name: "kind", label: "Type", type: "select", options: [["resume", "Resume"], ["certification", "Certification"], ["other", "Other"]] },
     { name: "driveUrl", label: "Document (Google Drive URL or Upload File)", type: "fileOrUrl", fileTypeHint: "document", accept: ".pdf,.doc,.docx,application/pdf" },
     { name: "sortOrder", label: "Order", type: "number", required: true },
     { name: "visible", label: "Visible", type: "checkbox" },
@@ -85,7 +85,7 @@ function EntityForm({ kind, row, skills, count }: { kind: ContentKind; row?: Ent
             return <div className={styles.wideField} key={field.name}><FieldLabel htmlFor={id}>{field.label}</FieldLabel><Textarea id={id} name={field.name} defaultValue={String(value ?? "")} required={field.required} maxLength={field.maxLength} /></div>;
           }
           if (field.type === "select") {
-            return <div key={field.name}><FieldLabel htmlFor={id}>{field.label}</FieldLabel><Select id={id} name={field.name} defaultValue={String(value ?? field.options?.[0]?.[0] ?? "")}>{field.options?.map(([option, label]) => <option key={option} value={option}>{label}</option>)}</Select></div>;
+            return <div key={field.name}><FieldLabel htmlFor={id}>{field.label}</FieldLabel><Select id={id} name={field.name} defaultValue={String(value ?? field.options?.[0]?.[0] ?? "")} required={field.required}>{field.options?.map(([option, label]) => <option key={option} value={option}>{label}</option>)}</Select></div>;
           }
           if (field.type === "fileOrUrl") {
             return (

@@ -39,6 +39,10 @@ The page scrolls through full-bleed "rooms", each with its own color. Room chang
 | Marigold | `#F4B223` | Skills room, primary accent, CTA |
 | Orchid | `#B58AE6` | Secondary accent, one project card color, used sparingly |
 | Sage | `#8FA394` | Muted text on dark, borders, one project card color |
+| Journey Education | `#1F5A3E` / `#DDE8D9` | Education foreground / tint |
+| Journey Experience | `#6B3FA0` / `#E3D9F0` | Experience foreground / tint |
+| Journey Achievement | `#A4481C` / `#F3DCCB` | Achievement foreground / tint |
+| Journey Certification | `#7A5A00` / `#F0E3B8` | Certification foreground / tint |
 
 - Approximate contrast on Moss (verify with a checker): Marigold about 8:1, Oat about 12:1, Sage about 5.6:1, Orchid about 5.5:1.
 - Text on Marigold, Orchid, Sage and Oat cards: Deep Moss.
